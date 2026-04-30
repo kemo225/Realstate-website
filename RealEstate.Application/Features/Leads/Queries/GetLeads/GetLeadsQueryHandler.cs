@@ -27,19 +27,12 @@ public class GetLeadsQueryHandler : IRequestHandler<GetLeadsQuery, PaginatedList
     public async Task<PaginatedList<LeadDto>> Handle(GetLeadsQuery request, CancellationToken cancellationToken)
     {
         var query = _context.Leads
-            .Include(l => l.Property).ThenInclude(p => p.Project)
             .AsNoTracking();
 
-        if (!string.IsNullOrEmpty(request.SearchTerm))
-        {
-            query = query.Where(l => l.FullName.Contains(request.SearchTerm) || l.Phone.Contains(request.SearchTerm));
-        }
 
-        query = query.Where(l => l.isActive == true);
-
-        if (request.PropertyId.HasValue)
+        if (request.UnitId.HasValue)
         {
-            query = query.Where(l => l.PropertyId == request.PropertyId.Value);
+            query = query.Where(l => l.UnitId == request.UnitId.Value);
         }
 
         return await query

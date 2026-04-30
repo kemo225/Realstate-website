@@ -1,14 +1,13 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Exceptions;
-using RealEstate.Application.Features.Properties.Models;
-using RealEstate.Application.Features.Units.Commands.UpdateUnit;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace RealEstate.Application.Features.Properties.Commands.UpdateProperty;
+namespace RealEstate.Application.Features.Units.Commands.UpdateUnit;
 
 public class UpdateUnitCommandHandler : IRequestHandler<UpdateUnitCommand, int>
 {
@@ -18,52 +17,47 @@ public class UpdateUnitCommandHandler : IRequestHandler<UpdateUnitCommand, int>
     {
         _unitOfWork = unitOfWork;
     }
-
+   
     public async Task<int> Handle(UpdateUnitCommand request, CancellationToken cancellationToken)
     {
-       
+        // Use minimal query with projection or just enough to get the unit and its details
+        var unit = await _unitOfWork.Repository<RealEstate.Domain.Entities.Unit>()
+            .Query()
+            .FirstOrDefaultAsync(u => u.Id == request.Id , cancellationToken);
 
-       var Unit=  await _unitOfWork.Repository<Domain.Entities.Unit>()
-        .Query().Include(u => u.Project).Include(u=>u.PropertyDetails.Any(p=>p.Status==PropertyStatus.Approved))
-        .Where(u => u.IsActive && u.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
-
-        if (Unit == null)
-            throw new NotFoundException("Property", request.Id);
-
-        var propertyDetailsId = Unit?.PropertyDetails
-    .FirstOrDefault(p => p.Status == PropertyStatus.Approved)?.Id ??0;
-
-        var UnitDetails = await _unitOfWork.Repository<UnitDetail>().GetByIdAsync(propertyDetailsId);
-        if(UnitDetails == null)
-            throw new Exceptions.ValidtationException("Unit Not Have Unit Details");
-
-        if (await _unitOfWork.Repository<Project>()
-    .ExistsAsync(p =>
-        p.Id == Unit.ProjectId &&
-        p.Properties.Any(u => u.Name == request.Name)))
-        {
-            throw new Exceptions.ValidtationException($"A Unit Exist in Project Cannot Update for  '{request.Name}' already exists.");
+        if (unit == null)
+            throw new NotFoundException("Unit", request.Id);
+       if(!unit.IsActive)
+            {
+            throw new ValidatationException("Cannot update an Sold unit.");
         }
 
+        // Check if name already exists in the same project (excluding current unit)
+        var nameExists = await _unitOfWork.Repository<RealEstate.Domain.Entities.Unit>()
+            .ExistsAsync(u => u.ProjectId == unit.ProjectId && u.Name == request.Name && u.Id != request.Id);
 
+        if (nameExists)
+            throw new ValidatationException($"A unit with name '{request.Name}' already exists in this project.");
 
+        // Update basic unit fields
+        unit.Name = request.Name;
+        unit.Description = request.Description;
+        unit.Price = request.Price;
+        unit.PropertyType = request.PropertyType;
 
-        Unit.Name = request.Name;
-        Unit.Description = request.Description;
-        Unit.Price = request.Price;
-        Unit.PropertyType = request.PropertyType;
-        UnitDetails.InstallmentDownPayment = request.installmentDownPayment;
-        UnitDetails.CommissionRate = request.CmmisionRate;
-        UnitDetails.InstallmentYears =Convert.ToInt32(request.installmentYears);
-        UnitDetails.PaymentType = request!.PaymentType.ToLower() == PaymentType.Cash.ToString().ToLower() ? PaymentType.Cash : PaymentType.Installment;
-
+        // Update related UnitDetails
+        unit.FloorName = request.FloorName;
+        unit.NoKitchen = request.NoKitchen;
+        unit.NoBedRoom = request.NoBedRoom;
+        unit.NoBathRoom = request.NoBathRoom;
+        unit.IsFeatured= request.IsFeatured;
 
 
 
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        return Unit.Id;
+        return unit.Id;
     }
 }
 

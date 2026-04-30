@@ -55,6 +55,12 @@ public record AuthResponse(
 );
 
 public record RefreshTokenRequest(
-    string AccessToken,
     string RefreshToken
+);
+
+public record AdminListItemDto(
+    string Id,
+    string? Username,
+    string? Email,
+    DateTime CreatedAt
 );

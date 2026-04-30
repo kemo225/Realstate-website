@@ -6,6 +6,7 @@ D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.Genera
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.AssemblyInfoInputs.cache
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.AssemblyInfo.cs
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.csproj.CoreCompileInputs.cache
+D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.sourcelink.json
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.dll
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\refint\RealEstate.Domain.dll
 D:\RealStateWebsite\RealEstate.Domain\obj\Debug\net10.0\RealEstate.Domain.pdb

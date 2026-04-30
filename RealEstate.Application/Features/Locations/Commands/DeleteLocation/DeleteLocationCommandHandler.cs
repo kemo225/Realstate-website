@@ -22,7 +22,7 @@ public class DeleteLocationCommandHandler : IRequestHandler<DeleteLocationComman
         if (location == null) 
             throw new RealEstate.Application.Exceptions.NotFoundException("Location", request.Id);
         if (await _unitOfWork.Repository<Project>().ExistsAsync(p=>p.LocationId==location.Id))
-            throw new RealEstate.Application.Exceptions.ValidtationException("Location Is Related With Project or More");
+            throw new RealEstate.Application.Exceptions.ValidatationException("Location Is Related With Project or More");
 
         _unitOfWork.Repository<Location>().Delete(location);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

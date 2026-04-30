@@ -6,10 +6,57 @@
     "version": "v1"
   },
   "paths": {
-    "/api/Admin/update": {
+    "/api/Admins": {
+      "get": {
+        "tags": [
+          "Admins"
+        ],
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminListItemDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminListItemDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminListItemDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Admins/update": {
       "put": {
         "tags": [
-          "Admin"
+          "Admins"
         ],
         "requestBody": {
           "content": {
@@ -37,6 +84,223 @@
         }
       }
     },
+    "/api/Applicants": {
+      "get": {
+        "tags": [
+          "Applicants"
+        ],
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Applicants"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApplicantCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApplicantCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApplicantCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Applicants"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateApplicantCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateApplicantCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateApplicantCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Applicants/{id}": {
+      "get": {
+        "tags": [
+          "Applicants"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OwnerDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Applicants"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Auth/login": {
       "post": {
         "tags": [
@@ -57,6 +321,37 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string"
               }
             }
           }
@@ -99,68 +394,6 @@
         }
       }
     },
-    "/api/Auth/forgot-password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ForgotPasswordRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ForgotPasswordRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ForgotPasswordRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Auth/reset-password": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ResetPasswordRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/Auth/update-password": {
       "put": {
         "tags": [
@@ -192,6 +425,37 @@
         }
       }
     },
+    "/api/Auth/refresh-token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshTokenRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Deals": {
       "get": {
         "tags": [
@@ -199,7 +463,7 @@
         ],
         "parameters": [
           {
-            "name": "PropertyId",
+            "name": "UnitId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -207,14 +471,29 @@
             }
           },
           {
-            "name": "SearchTerm",
+            "name": "ProjectId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "DealLocation",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/enDealLocation"
+            }
+          },
+          {
+            "name": "SortBy",
             "in": "query",
             "schema": {
               "type": "string"
             }
           },
           {
-            "name": "Status",
+            "name": "SortDirection",
             "in": "query",
             "schema": {
               "type": "string"
@@ -300,6 +579,318 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Int32Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/unit/{unitId}": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "unitId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/latest": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/project/{projectId}": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/completed": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/sold-outside": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Deals/sold-inside": {
+      "get": {
+        "tags": [
+          "Deals"
+        ],
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DealDtoPaginatedList"
                 }
               }
             }
@@ -398,6 +989,452 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/DealDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Developers": {
+      "post": {
+        "tags": [
+          "Developers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeveloperCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeveloperCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDeveloperCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Developers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeveloperCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeveloperCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateDeveloperCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "SearchKeyword",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortBy",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "SortDescending",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoPaginatedListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoPaginatedListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoPaginatedListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Developers/{id}": {
+      "delete": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeveloperDtoApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Developers/{id}/logo": {
+      "post": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Developers/{id}/gallery": {
+      "post": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "files": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "files": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Developers/gallery/{id}": {
+      "delete": {
+        "tags": [
+          "Developers"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitApiResponse"
                 }
               }
             }
@@ -626,21 +1663,7 @@
         ],
         "parameters": [
           {
-            "name": "SearchTerm",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Status",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PropertyId",
+            "name": "UnitId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -670,17 +1693,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDtoPaginatedList"
+                  "$ref": "#/components/schemas/LeadDtoPaginatedListApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDtoPaginatedList"
+                  "$ref": "#/components/schemas/LeadDtoPaginatedListApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDtoPaginatedList"
+                  "$ref": "#/components/schemas/LeadDtoPaginatedListApiResponse"
                 }
               }
             }
@@ -756,30 +1779,72 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDto"
+                  "$ref": "#/components/schemas/LeadDtoApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDto"
+                  "$ref": "#/components/schemas/LeadDtoApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LeadDto"
+                  "$ref": "#/components/schemas/LeadDtoApiResponse"
                 }
               }
             }
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/api/Leads/cancel/lead/{LeadId}": {
+      "put": {
         "tags": [
           "Leads"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "LeadId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Result"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Leads/view/lead/{LeadId}": {
+      "put": {
+        "tags": [
+          "Leads"
+        ],
+        "parameters": [
+          {
+            "name": "LeadId",
             "in": "path",
             "required": true,
             "schema": {
@@ -841,26 +1906,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationDto"
-                  }
+                  "$ref": "#/components/schemas/LocationDtoPaginatedListApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationDto"
-                  }
+                  "$ref": "#/components/schemas/LocationDtoPaginatedListApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/LocationDto"
-                  }
+                  "$ref": "#/components/schemas/LocationDtoPaginatedListApiResponse"
                 }
               }
             }
@@ -886,6 +1942,55 @@
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateLocationCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "integer",
+                  "format": "int32"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Locations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationCommand"
               }
             }
           }
@@ -939,77 +2044,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/LocationDto"
+                  "$ref": "#/components/schemas/LocationDtoApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LocationDto"
+                  "$ref": "#/components/schemas/LocationDtoApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LocationDto"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Locations"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateLocationCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateLocationCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateLocationCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/LocationDtoApiResponse"
                 }
               }
             }
@@ -1055,71 +2100,26 @@
         }
       }
     },
-    "/api/Owners": {
-      "get": {
-        "tags": [
-          "Owners"
-        ],
-        "parameters": [
-          {
-            "name": "PageNumber",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "PageSize",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDtoPaginatedList"
-                }
-              }
-            }
-          }
-        }
-      },
+    "/api/payment-plans": {
       "post": {
         "tags": [
-          "Owners"
+          "PaymentPlans"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOwnerCommand"
+                "$ref": "#/components/schemas/CreatePaymentPlanCommand"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOwnerCommand"
+                "$ref": "#/components/schemas/CreatePaymentPlanCommand"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateOwnerCommand"
+                "$ref": "#/components/schemas/CreatePaymentPlanCommand"
               }
             }
           }
@@ -1141,46 +2141,6 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Int32Result"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Owners/{id}": {
-      "get": {
-        "tags": [
-          "Owners"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OwnerDto"
                 }
               }
             }
@@ -1189,34 +2149,23 @@
       },
       "put": {
         "tags": [
-          "Owners"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
+          "PaymentPlans"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateOwnerCommand"
+                "$ref": "#/components/schemas/UpdatePaymentPlanCommand"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateOwnerCommand"
+                "$ref": "#/components/schemas/UpdatePaymentPlanCommand"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/UpdateOwnerCommand"
+                "$ref": "#/components/schemas/UpdatePaymentPlanCommand"
               }
             }
           }
@@ -1227,26 +2176,28 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32Result"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32Result"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Int32Result"
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
           }
         }
-      },
+      }
+    },
+    "/api/payment-plans/{id}": {
       "delete": {
         "tags": [
-          "Owners"
+          "PaymentPlans"
         ],
         "parameters": [
           {
@@ -1276,6 +2227,46 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BooleanResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payment-plans/unit/{unitId}": {
+      "get": {
+        "tags": [
+          "PaymentPlans"
+        ],
+        "parameters": [
+          {
+            "name": "unitId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitPaymentPlanDtoIEnumerableResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitPaymentPlanDtoIEnumerableResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnitPaymentPlanDtoIEnumerableResult"
                 }
               }
             }
@@ -1312,26 +2303,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectDto"
-                  }
+                  "$ref": "#/components/schemas/ProjectDtoPaginatedListApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectDto"
-                  }
+                  "$ref": "#/components/schemas/ProjectDtoPaginatedListApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/ProjectDto"
-                  }
+                  "$ref": "#/components/schemas/ProjectDtoPaginatedListApiResponse"
                 }
               }
             }
@@ -1410,17 +2392,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectDto"
+                  "$ref": "#/components/schemas/ProjectDtoApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectDto"
+                  "$ref": "#/components/schemas/ProjectDtoApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProjectDto"
+                  "$ref": "#/components/schemas/ProjectDtoApiResponse"
                 }
               }
             }
@@ -1571,17 +2553,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               }
             }
@@ -1779,17 +2761,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/StringListApiResponse"
                 }
               }
             }
@@ -1826,17 +2808,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               }
             }
@@ -1873,17 +2855,245 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StringListResult"
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Requests": {
+      "get": {
+        "tags": [
+          "Requests"
+        ],
+        "parameters": [
+          {
+            "name": "PageNumber",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "PageSize",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "Status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/RequestStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDtoPaginatedListApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDtoPaginatedListApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDtoPaginatedListApiResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Requests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRequestCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Requests/{id}": {
+      "get": {
+        "tags": [
+          "Requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDetailsDtoApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDetailsDtoApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestDetailsDtoApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Requests/approve": {
+      "put": {
+        "tags": [
+          "Requests"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveRequestCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveRequestCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApproveRequestCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Requests/{id}/reject": {
+      "put": {
+        "tags": [
+          "Requests"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanApiResponse"
                 }
               }
             }
@@ -2105,175 +3315,6 @@
         }
       }
     },
-    "/api/UnitRequests": {
-      "post": {
-        "tags": [
-          "UnitRequests"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRequestPropertPayCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRequestPropertPayCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateRequestPropertPayCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/UnitRequests/{id}/approve": {
-      "post": {
-        "tags": [
-          "UnitRequests"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApprovePropertyCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApprovePropertyCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApprovePropertyCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/UnitRequests/{id}/reject": {
-      "post": {
-        "tags": [
-          "UnitRequests"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RejectPropertyCommand"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RejectPropertyCommand"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/RejectPropertyCommand"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Result"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/Units": {
       "get": {
         "tags": [
@@ -2282,20 +3323,6 @@
         "parameters": [
           {
             "name": "SearchTerm",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "PropertyType",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Status",
             "in": "query",
             "schema": {
               "type": "string"
@@ -2315,14 +3342,6 @@
             "schema": {
               "type": "number",
               "format": "double"
-            }
-          },
-          {
-            "name": "LocationId",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
             }
           },
           {
@@ -2358,7 +3377,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PropertyDto"
+                    "$ref": "#/components/schemas/UnitDto"
                   }
                 }
               },
@@ -2366,7 +3385,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PropertyDto"
+                    "$ref": "#/components/schemas/UnitDto"
                   }
                 }
               },
@@ -2374,7 +3393,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/PropertyDto"
+                    "$ref": "#/components/schemas/UnitDto"
                   }
                 }
               }
@@ -2405,17 +3424,57 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/PropertyDto"
+                  "$ref": "#/components/schemas/UnitDto"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PropertyDto"
+                  "$ref": "#/components/schemas/UnitDto"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/PropertyDto"
+                  "$ref": "#/components/schemas/UnitDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Units/{id}/sold": {
+      "put": {
+        "tags": [
+          "Units"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanResult"
                 }
               }
             }
@@ -2455,7 +3514,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "properties": {
+          "units": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CreatePropertyDto"
@@ -2465,30 +3524,95 @@
         },
         "additionalProperties": false
       },
-      "ApprovePropertyCommand": {
+      "AdminListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AdminListItemDtoPaginatedList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AdminListItemDto"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ApproveRequestCommand": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
           },
-          "commissionRate": {
-            "type": "number",
-            "format": "double",
+          "paymentPlans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentPlanDtoCreateReqest"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BooleanApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
             "nullable": true
           },
-          "installmentYears": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
+          "data": {
+            "type": "boolean"
           },
-          "installmentDownPayment": {
-            "type": "number",
-            "format": "double",
+          "errors": {
             "nullable": true
-          },
-          "paymentMethod": {
-            "$ref": "#/components/schemas/PaymentType"
           }
         },
         "additionalProperties": false
@@ -2512,10 +3636,32 @@
         },
         "additionalProperties": false
       },
+      "CreateApplicantCommand": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateDealCommand": {
         "type": "object",
         "properties": {
-          "unitId": {
+          "unitPlanId": {
             "type": "integer",
             "format": "int32"
           },
@@ -2531,11 +3677,21 @@
             "type": "string",
             "nullable": true
           },
-          "dealDate": {
+          "dealLocation": {
             "type": "string",
-            "format": "date-time"
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateDeveloperCommand": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
           },
-          "dealType": {
+          "description": {
             "type": "string",
             "nullable": true
           }
@@ -2598,36 +3754,34 @@
             "nullable": true
           },
           "latitude": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           },
           "longitude": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "CreateOwnerCommand": {
+      "CreatePaymentPlanCommand": {
         "type": "object",
         "properties": {
-          "fullName": {
+          "paymentType": {
             "type": "string",
             "nullable": true
           },
-          "email": {
-            "type": "string",
-            "nullable": true
+          "unitId": {
+            "type": "integer",
+            "format": "int32"
           },
-          "phone": {
-            "type": "string",
-            "nullable": true
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double"
           },
-          "notes": {
-            "type": "string",
-            "nullable": true
+          "installmentYears": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2643,8 +3797,9 @@
             "type": "string",
             "nullable": true
           },
-          "developerName": {
-            "type": "string",
+          "developerId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "locationId": {
@@ -2671,10 +3826,6 @@
           },
           "propertyType": {
             "$ref": "#/components/schemas/PropertyType"
-          },
-          "paymentType": {
-            "type": "string",
-            "nullable": true
           },
           "noBathRoom": {
             "type": "integer",
@@ -2703,14 +3854,11 @@
           "view": {
             "$ref": "#/components/schemas/enView"
           },
-          "installmentYears": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "installmentDownPayment": {
-            "type": "number",
-            "format": "double",
+          "paymentPlans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentPlanDtoCreate"
+            },
             "nullable": true
           },
           "isFeatured": {
@@ -2735,45 +3883,16 @@
         },
         "additionalProperties": false
       },
-      "CreatePropertyRequest": {
+      "CreateRequestCommand": {
         "type": "object",
         "properties": {
-          "projectId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
+          "unitName": {
             "type": "string",
             "nullable": true
           },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "noKithcen": {
+          "applicantId": {
             "type": "integer",
             "format": "int32"
-          },
-          "noBedRoom": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "noBathRoom": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "ownerId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "CreateRequestPropertPayCommand": {
-        "type": "object",
-        "properties": {
-          "request": {
-            "$ref": "#/components/schemas/CreatePropertyRequest"
           }
         },
         "additionalProperties": false
@@ -2788,34 +3907,18 @@
         },
         "additionalProperties": false
       },
-      "DealDetailsDto": {
+      "DealBuyerDto": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "propertyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "propertyTitle": {
+          "fullName": {
             "type": "string",
             "nullable": true
           },
-          "sellerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "sellerName": {
+          "email": {
             "type": "string",
             "nullable": true
           },
-          "buyerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "buyerName": {
+          "phone": {
             "type": "string",
             "nullable": true
           },
@@ -2827,27 +3930,59 @@
             "type": "string",
             "nullable": true
           },
-          "totalPrice": {
-            "type": "number",
-            "format": "double"
+          "dealLocation": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DealDetailsDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
           },
-          "paidAmount": {
-            "type": "number",
-            "format": "double"
+          "dealDate": {
+            "type": "string",
+            "format": "date-time"
           },
-          "remainingAmount": {
-            "type": "number",
-            "format": "double"
-          },
-          "status": {
+          "dealType": {
             "type": "string",
             "nullable": true
           },
-          "payments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaymentDto"
-            },
+          "locationDeal": {
+            "type": "string",
+            "nullable": true
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/DealUnitBasicDto"
+          },
+          "unitDetails": {
+            "$ref": "#/components/schemas/DealUnitDetailsDto"
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/DealBuyerDto"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -2860,30 +3995,6 @@
             "type": "integer",
             "format": "int32"
           },
-          "propertyId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "propertyTitle": {
-            "type": "string",
-            "nullable": true
-          },
-          "sellerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "sellerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "buyerId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "buyerName": {
-            "type": "string",
-            "nullable": true
-          },
           "dealDate": {
             "type": "string",
             "format": "date-time"
@@ -2892,20 +4003,37 @@
             "type": "string",
             "nullable": true
           },
-          "totalPrice": {
-            "type": "number",
-            "format": "double"
-          },
-          "paidAmount": {
-            "type": "number",
-            "format": "double"
-          },
-          "remainingAmount": {
-            "type": "number",
-            "format": "double"
-          },
-          "status": {
+          "locationDeal": {
             "type": "string",
+            "nullable": true
+          },
+          "isCompleted": {
+            "type": "boolean"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/DealUnitBasicDto"
+          },
+          "unitDetails": {
+            "$ref": "#/components/schemas/DealUnitDetailsDto"
+          },
+          "buyer": {
+            "$ref": "#/components/schemas/DealBuyerDto"
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },
@@ -2946,6 +4074,226 @@
         },
         "additionalProperties": false
       },
+      "DealUnitBasicDto": {
+        "type": "object",
+        "properties": {
+          "unitId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitName": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "area": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "projectId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "projectName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DealUnitDetailsDto": {
+        "type": "object",
+        "properties": {
+          "unitDetailId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "commissionRate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "installmentMothes": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "logoImage": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "gallery": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeveloperGalleryDto"
+            },
+            "nullable": true
+          },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeveloperProjectDto"
+            },
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperDtoApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/DeveloperDto"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperDtoPaginatedList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeveloperDto"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperDtoPaginatedListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/DeveloperDtoPaginatedList"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperGalleryDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeveloperProjectDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "FacilityDto": {
         "type": "object",
         "properties": {
@@ -2960,11 +4308,21 @@
         },
         "additionalProperties": false
       },
-      "ForgotPasswordRequest": {
+      "Int32ApiResponse": {
         "type": "object",
         "properties": {
-          "email": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
             "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "errors": {
             "nullable": true
           }
         },
@@ -3013,7 +4371,7 @@
             "type": "string",
             "nullable": true
           },
-          "propertyId": {
+          "unitId": {
             "type": "integer",
             "format": "int32"
           },
@@ -3023,6 +4381,46 @@
           },
           "notes": {
             "type": "string",
+            "nullable": true
+          },
+          "statusLead": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LeadDtoApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/LeadDto"
+          },
+          "errors": {
             "nullable": true
           }
         },
@@ -3063,6 +4461,25 @@
         },
         "additionalProperties": false
       },
+      "LeadDtoPaginatedListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/LeadDtoPaginatedList"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LocationDto": {
         "type": "object",
         "properties": {
@@ -3094,6 +4511,96 @@
           "longitude": {
             "type": "number",
             "format": "double",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocationDtoApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/LocationDto"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocationDtoPaginatedList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationDto"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LocationDtoPaginatedListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/LocationDtoPaginatedList"
+          },
+          "errors": {
             "nullable": true
           }
         },
@@ -3170,39 +4677,74 @@
         },
         "additionalProperties": false
       },
-      "PaymentDto": {
+      "PaymentPlanDtoCreate": {
         "type": "object",
         "properties": {
-          "id": {
+          "installmentMonthes": {
             "type": "integer",
-            "format": "int32"
-          },
-          "amount": {
-            "type": "number",
-            "format": "double"
-          },
-          "paymentType": {
-            "type": "string",
+            "format": "int32",
             "nullable": true
           },
-          "date": {
-            "type": "string",
-            "format": "date-time"
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           },
-          "createdBy": {
+          "paymentType": {
             "type": "string",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PaymentType": {
-        "enum": [
-          0,
-          1
-        ],
-        "type": "integer",
-        "format": "int32"
+      "PaymentPlanDtoCreateReqest": {
+        "type": "object",
+        "properties": {
+          "commisionRate": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "installmentMoths": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaymentPlanDtoRead": {
+        "type": "object",
+        "properties": {
+          "planStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "installmentMothes": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       },
       "ProjectDto": {
         "type": "object",
@@ -3217,6 +4759,11 @@
           },
           "description": {
             "type": "string",
+            "nullable": true
+          },
+          "developerId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           },
           "developerName": {
@@ -3238,94 +4785,107 @@
               "type": "string"
             },
             "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PropertyDto": {
+      "ProjectDtoApiResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "price": {
-            "type": "number",
-            "format": "double"
-          },
-          "propertyType": {
-            "type": "string",
-            "nullable": true
-          },
-          "isFeatured": {
+          "success": {
             "type": "boolean"
           },
-          "locationName": {
+          "message": {
             "type": "string",
             "nullable": true
           },
-          "projectName": {
-            "type": "string",
-            "nullable": true
+          "data": {
+            "$ref": "#/components/schemas/ProjectDto"
           },
-          "ownerName": {
-            "type": "string",
-            "nullable": true
-          },
-          "commissionRate": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "installmentYears": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "installmentDownPayment": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "paymentType": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "imageUrls": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "facilities": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true
-          },
-          "services": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
+          "errors": {
             "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "ProjectDtoPaginatedList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProjectDto"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProjectDtoPaginatedListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/ProjectDtoPaginatedList"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PropertyStatus": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "PropertyType": {
         "enum": [
@@ -3338,37 +4898,200 @@
         "type": "integer",
         "format": "int32"
       },
-      "RejectPropertyCommand": {
+      "RefreshTokenRequest": {
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestDetailsDto": {
         "type": "object",
         "properties": {
           "id": {
             "type": "integer",
             "format": "int32"
+          },
+          "unitId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitName": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "unitArea": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "applicantId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "applicantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicantEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicantPhone": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "approvedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "approvedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "ResetPasswordRequest": {
+      "RequestDetailsDtoApiResponse": {
         "type": "object",
         "properties": {
-          "email": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
             "type": "string",
             "nullable": true
           },
-          "token": {
-            "type": "string",
-            "nullable": true
+          "data": {
+            "$ref": "#/components/schemas/RequestDetailsDto"
           },
-          "newPassword": {
-            "type": "string",
-            "nullable": true
-          },
-          "confirmPassword": {
-            "type": "string",
+          "errors": {
             "nullable": true
           }
         },
         "additionalProperties": false
+      },
+      "RequestDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitName": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicantName": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "approvedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestDtoPaginatedList": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RequestDto"
+            },
+            "nullable": true
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "totalCount": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "hasPreviousPage": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "hasNextPage": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestDtoPaginatedListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/RequestDtoPaginatedList"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "Result": {
         "type": "object",
@@ -3400,7 +5123,209 @@
         },
         "additionalProperties": false
       },
-      "StringListResult": {
+      "StringApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "string",
+            "nullable": true
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "StringListApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Unit": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "UnitApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "data": {
+            "$ref": "#/components/schemas/Unit"
+          },
+          "errors": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnitDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "propertyType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isFeatured": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "locationName": {
+            "type": "string",
+            "nullable": true
+          },
+          "projectName": {
+            "type": "string",
+            "nullable": true
+          },
+          "paymentPlans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaymentPlanDtoRead"
+            },
+            "nullable": true
+          },
+          "imageUrls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "services": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnitPaymentPlanDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unitName": {
+            "type": "string",
+            "nullable": true
+          },
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double"
+          },
+          "installmentYears": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "unitStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UnitPaymentPlanDtoIEnumerableResult": {
         "type": "object",
         "properties": {
           "succeeded": {
@@ -3416,7 +5341,7 @@
           "data": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/UnitPaymentPlanDto"
             },
             "nullable": true
           }
@@ -3435,6 +5360,50 @@
             "nullable": true
           },
           "phoneNumber": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateApplicantCommand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "phone": {
+            "type": "string",
+            "nullable": true
+          },
+          "notes": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateDeveloperCommand": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
             "type": "string",
             "nullable": true
           }
@@ -3479,38 +5448,10 @@
             "nullable": true
           },
           "latitude": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           },
           "longitude": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "UpdateOwnerCommand": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fullName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "phone": {
-            "type": "string",
-            "nullable": true
-          },
-          "notes": {
             "type": "string",
             "nullable": true
           }
@@ -3535,6 +5476,31 @@
         },
         "additionalProperties": false
       },
+      "UpdatePaymentPlanCommand": {
+        "type": "object",
+        "properties": {
+          "paymentPlanId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paymentType": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/PropertyStatus"
+          },
+          "installmentDownPayment": {
+            "type": "number",
+            "format": "double"
+          },
+          "installmentYears": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "UpdateProjectCommand": {
         "type": "object",
         "properties": {
@@ -3550,8 +5516,9 @@
             "type": "string",
             "nullable": true
           },
-          "developerName": {
-            "type": "string",
+          "developerId": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
@@ -3593,27 +5560,35 @@
           "propertyType": {
             "$ref": "#/components/schemas/PropertyType"
           },
-          "paymentType": {
+          "noBathRoom": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "noBedRoom": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "noKitchen": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "floorName": {
             "type": "string",
             "nullable": true
           },
-          "cmmisionRate": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "installmentYears": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "installmentDownPayment": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
+          "isFeatured": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
+      },
+      "enDealLocation": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
       },
       "enView": {
         "enum": [

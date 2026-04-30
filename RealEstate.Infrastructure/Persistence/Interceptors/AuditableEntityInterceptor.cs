@@ -49,7 +49,7 @@ public class AuditableEntityInterceptor : SaveChangesInterceptor
                 }
             }
 
-            if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
+            if (entry.State == EntityState.Modified || entry.HasChangedOwnedEntities())
             {
                 entry.Entity.UpdatedAt = DateTime.UtcNow;
                 if (!string.IsNullOrWhiteSpace(currentUserId))

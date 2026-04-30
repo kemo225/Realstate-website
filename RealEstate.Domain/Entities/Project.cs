@@ -7,7 +7,10 @@ public class Project : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
-    public string? DeveloperName { get; set; }
+    
+    public int? DeveloperId { get; set; }
+    public Developer? Developer { get; set; }
+
     public int? LocationId { get; set; }
     public Location? Location { get; set; }
 

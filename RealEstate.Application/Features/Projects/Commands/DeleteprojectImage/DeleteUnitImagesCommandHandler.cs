@@ -14,29 +14,30 @@ namespace RealEstate.Application.Features.Projects.Commands.UploadProjectImages;
 public class DeleteProjectImagesCommandHandler : IRequestHandler<DeleteProjectImagesCommand, bool>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileStorageService _fileStorageService;
+    private readonly IImageService _imageService;
 
-    public DeleteProjectImagesCommandHandler(IUnitOfWork unitOfWork, IFileStorageService fileStorageService)
+    public DeleteProjectImagesCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
     {
         _unitOfWork = unitOfWork;
-        _fileStorageService = fileStorageService;
+        _imageService = imageService;
     }
 
     public async Task<bool> Handle(DeleteProjectImagesCommand request, CancellationToken cancellationToken)
     {
-        var project = await _unitOfWork.Repository<Domain.Entities.Project>().Query().Include(p => p.Images).FirstOrDefaultAsync(p => p.Id == request.ProjectId, cancellationToken);
+        var project = await _unitOfWork.Repository<Project>().Query()
+            .Include(p => p.Images)
+            .FirstOrDefaultAsync(p => p.Id == request.ProjectId, cancellationToken);
+
         if (project == null) throw new RealEstate.Application.Exceptions.NotFoundException("Project", request.ProjectId);
-        if (!project.Images.Any(i => i.ImageUrl == request.Url))
+
+        var image = project.Images.FirstOrDefault(i => i.ImageUrl == request.Url);
+        if (image == null)
         {
             throw new RealEstate.Application.Exceptions.NotFoundException("ProjectImage", request.Url);
         }
 
-
-        if (!await _fileStorageService.DeleteFileAsync(request.Url))
-        {
-            throw new Exception($"Failed to delete file {request.Url}");
-        }
-
+        await _imageService.DeleteAsync(request.Url);
+        project.Images.Remove(image);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

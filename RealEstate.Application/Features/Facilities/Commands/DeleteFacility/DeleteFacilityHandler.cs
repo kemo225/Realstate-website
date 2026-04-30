@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Exceptions;
 using RealEstate.Domain.Interfaces;
@@ -24,7 +24,7 @@ namespace RealEstate.Application.Features.Facilities.Commands.DeleteFacility
             if (facilty == null)
                 throw new NotFoundException("Facilty Not Exist");
             if(facilty.PropertyFacilities != null && facilty.PropertyFacilities.Count > 0)
-                throw new ValidtationException("Cannot delete facility that is associated with properties.");
+                throw new ValidatationException("Cannot delete facility that is associated with properties.");
             return true;
 
 

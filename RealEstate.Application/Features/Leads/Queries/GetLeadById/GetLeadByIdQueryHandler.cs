@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Common.Interfaces;
 using RealEstate.Application.Features.Leads.Models;
 
+using AutoMapper.QueryableExtensions;
+
 namespace RealEstate.Application.Features.Leads.Queries.GetLeadById;
 
 public class GetLeadByIdQueryHandler : IRequestHandler<GetLeadByIdQuery, LeadDto?>
@@ -22,11 +24,12 @@ public class GetLeadByIdQueryHandler : IRequestHandler<GetLeadByIdQuery, LeadDto
     public async Task<LeadDto?> Handle(GetLeadByIdQuery request, CancellationToken cancellationToken)
     {
         var lead = await _context.Leads
-            .Include(l => l.Property).ThenInclude(p => p.Project)
-            .FirstOrDefaultAsync(l => l.Id == request.Id && l.isActive == true, cancellationToken);
+            .AsNoTracking()
+            .ProjectTo<LeadDto>(_mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
         
         if (lead == null) throw new RealEstate.Application.Exceptions.NotFoundException("Lead", request.Id);
 
-        return _mapper.Map<LeadDto>(lead);
+        return lead;
     }
 }

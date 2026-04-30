@@ -9,10 +9,9 @@ using RealEstate.Application.Features.Projects.Commands.UploadProjectImages;
 using RealEstate.Application.Features.Projects.Models;
 using RealEstate.Application.Features.Projects.Queries.GetProjectById;
 using RealEstate.Application.Features.Projects.Queries.GetProjects;
-using RealEstate.Application.Features.Properties.Commands.CreateProperty;
 using RealEstate.Application.Features.Properties.Commands.DeleteProperty;
 using RealEstate.Application.Features.Properties.Commands.DeleteUnitImages;
-using RealEstate.Application.Features.Properties.Commands.UpdateProperty;
+using RealEstate.Application.Features.Units.Commands.UpdateUnit;
 using RealEstate.Application.Features.Properties.Commands.UploadPropertyImages;
 using RealEstate.Application.Features.Properties.Models;
 
@@ -22,17 +21,17 @@ namespace RealEstate.API.Controllers;
 public class ProjectsController : BaseApiController
 {
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProjectDto>>> Get([FromQuery] GetProjectsQuery query)
+    public async Task<ActionResult<ApiResponse<PaginatedList<ProjectDto>>>> GetAll([FromQuery] GetProjectsQuery query)
     {
-        return Ok(await Mediator.Send(query));
+        var result = await Mediator.Send(query);
+        return Ok(new ApiResponse<PaginatedList<ProjectDto>> { Success = true, Data = result });
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ProjectDto>> GetById(int id)
+    public async Task<ActionResult<ApiResponse<ProjectDto>>> GetById(int id)
     {
         var result = await Mediator.Send(new GetProjectByIdQuery(id));
-        if (result == null) return NotFound();
-        return Ok(result);
+        return Ok(new ApiResponse<ProjectDto> { Success = true, Data = result });
     }
 
     [HttpPost]
@@ -61,9 +60,10 @@ public class ProjectsController : BaseApiController
 
     [HttpPost("{id}/images")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<Result<List<string>>>> UploadImages(int id, IFormFileCollection files)
+    public async Task<ActionResult<ApiResponse<List<string>>>> UploadImages(int id, IFormFileCollection files)
     {
-        return await Mediator.Send(new UploadProjectImagesCommand(id, files));
+        var result = await Mediator.Send(new UploadProjectImagesCommand(id, files));
+        return Ok(new ApiResponse<List<string>> { Success = result.Succeeded, Data = result.Data, Message = result.Succeeded ? "Images uploaded successfully." : result.Errors.FirstOrDefault() });
     }
     [HttpPost("AddUnitProject")]
     [Authorize(Roles = "Admin")]
@@ -86,21 +86,25 @@ public class ProjectsController : BaseApiController
         return Ok(await Mediator.Send(command));
     }
     [HttpPost("{id}/uploadUnit/images")]
-    public async Task<ActionResult<Result<List<string>>>> uploadUnitimages(int id, IFormFileCollection files)
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<ApiResponse<List<string>>>> uploadUnitimages(int id, IFormFileCollection files)
     {
-        return await Mediator.Send(new UploadPropertyImagesCommand(id, files));
+        var result = await Mediator.Send(new UploadPropertyImagesCommand(id, files));
+        return Ok(new ApiResponse<List<string>> { Success = result.Succeeded, Data = result.Data, Message = result.Succeeded ? "Images uploaded successfully." : result.Errors.FirstOrDefault() });
     }
     [HttpDelete("{id}/deleteproject/images")]
-    public async Task<ActionResult<Result<List<string>>>> DeleteProjectImages(int id, string url)
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<ApiResponse<bool>>> DeleteProjectImages(int id, string url)
     {
-        var command = new DeleteProjectImagesCommand(id, url);
-        return Ok(await Mediator.Send(command));
+        var result = await Mediator.Send(new DeleteProjectImagesCommand(id, url));
+        return Ok(new ApiResponse<bool> { Success = result, Data = result, Message = "Image deleted successfully." });
     }
     [HttpDelete("{id}/deleteUnit/images")]
-    public async Task<ActionResult<Result<List<string>>>> DeleteUnitImages(int id, string url)
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<ApiResponse<bool>>> DeleteUnitImages(int id, string url)
     {
-        var command = new DeleteUnitImagesCommand(id, url);
-        return Ok(await Mediator.Send(command));
+        var result = await Mediator.Send(new DeleteUnitImagesCommand(id, url));
+        return Ok(new ApiResponse<bool> { Success = result, Data = result, Message = "Image deleted successfully." });
     }
 
 }

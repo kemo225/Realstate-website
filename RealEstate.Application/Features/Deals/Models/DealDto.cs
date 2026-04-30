@@ -1,48 +1,57 @@
 using System;
-using System.Collections.Generic;
+using RealEstate.Domain.Entities;
 
 namespace RealEstate.Application.Features.Deals.Models;
 
 public class DealDto
 {
     public int Id { get; set; }
-    public int PropertyId { get; set; }
-    public string PropertyTitle { get; set; } = string.Empty;
-    public int SellerId { get; set; }
-    public string SellerName { get; set; } = string.Empty;
-    public int BuyerId { get; set; }
-    public string BuyerName { get; set; } = string.Empty;
     public DateTime DealDate { get; set; }
-    public string DealType { get; set; } = string.Empty;
-    public decimal TotalPrice { get; set; }
-    public decimal PaidAmount { get; set; }
-    public decimal RemainingAmount { get; set; }
-    public string Status { get; set; } = string.Empty;
+    public string DealType { get; set; }
+    public string LocationDeal {  get; set; }
+    public bool IsCompleted { get; set; }
+    public DealUnitBasicDto Unit { get; set; } = new();
+    public DealUnitDetailsDto UnitDetails { get; set; } = new();
+    public DealBuyerDto Buyer { get; set; } = new();
+    public string? CreatedBy { get; set; }
+    public DateTime CreatedAt { get; set; }
+    public string? UpdatedBy { get; set; }
+    public DateTime? UpdatedAt { get; set; }
 }
 
-public class PaymentDto
+public class DealUnitBasicDto
 {
-    public int Id { get; set; }
-    public decimal Amount { get; set; }
-    public string PaymentType { get; set; } = string.Empty;
-    public DateTime Date { get; set; }
-    public string CreatedBy { get; set; } = string.Empty;
+    public int UnitId { get; set; }
+    public string UnitName { get; set; } = string.Empty;
+    public decimal Price { get; set; }
+    public int Area { get; set; }
+    public bool IsActive { get; set; }
+    public int ProjectId { get; set; }
+    public string ProjectName { get; set; } = string.Empty;
 }
 
-public class DealDetailsDto
+public class DealUnitDetailsDto
 {
-    public int Id { get; set; }
-    public int PropertyId { get; set; }
-    public string PropertyTitle { get; set; } = string.Empty;
-    public int SellerId { get; set; }
-    public string SellerName { get; set; } = string.Empty;
-    public int BuyerId { get; set; }
-    public string BuyerName { get; set; } = string.Empty;
-    public DateTime DealDate { get; set; }
-    public string DealType { get; set; } = string.Empty;
-    public decimal TotalPrice { get; set; }
-    public decimal PaidAmount { get; set; }
-    public decimal RemainingAmount { get; set; }
-    public string Status { get; set; } = string.Empty;
-    public List<PaymentDto> Payments { get; set; } = new();
+    public int UnitDetailId { get; set; }
+    public decimal? CommissionRate { get; set; }
+    public decimal? InstallmentMothes { get; set; }
+    public decimal? InstallmentDownPayment { get; set; }
+    public string? PaymentType { get; set; }
+    public string? Status { get; set; }
+}
+
+public class DealBuyerDto
+{
+    public string? FullName { get; set; }
+    public string? Email { get; set; }
+    public string? Phone { get; set; }
+    public DateTime DealDate {  get; set; }
+    public string? DealLocation { get; set; }
+
+
+
+}
+
+public class DealDetailsDto : DealDto
+{
 }

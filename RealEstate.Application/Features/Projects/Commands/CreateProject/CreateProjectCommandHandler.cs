@@ -20,11 +20,13 @@ public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand,
     {
         if (!await _unitOfWork.Repository<Location>().ExistsAsync(l => l.Id == request.LocationId))
             throw new NotFoundException("Location Is Not Found");
+        if (!await _unitOfWork.Repository<Developer>().ExistsAsync(l => l.Id == request.DeveloperId))
+            throw new NotFoundException("Developer Is Not Found");
         var project = new Project
         {
             Name = request.Name,
             Description = request.Description,
-            DeveloperName = request.DeveloperName,
+            DeveloperId = request.DeveloperId,
             LocationId = request.LocationId
         };
 

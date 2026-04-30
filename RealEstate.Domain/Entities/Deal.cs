@@ -7,11 +7,11 @@ namespace RealEstate.Domain.Entities;
 
 public class Deal : BaseEntity
 {
-    [ForeignKey("UnitRequest")]
-    public int UnitRequestId { get; set; }
-    public UnitDetail? UnitRequest { get; set; }
-
- 
+    [ForeignKey("PaymentPlan")]
+    public int? UnitPlanId { get; set; }
+    public PaymentPlan? PaymentPlan { get; set; }
+    public enDealLocation LocationDeal { get; set; }
+ public string DealType { get; set; }
     public DateTime DealDate { get; set; }
 
     public string? ClientName { get; set; }
@@ -22,5 +22,9 @@ public class Deal : BaseEntity
     
     public byte[] RowVersion { get; set; } = null!;
 }
-
+public enum enDealLocation
+{
+    SoldInside,
+    SoldOutside
+}
 

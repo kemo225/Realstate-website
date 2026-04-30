@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using RealEstate.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,16 +15,15 @@ namespace RealEstate.Application.Features.Projects.Commands.AddPropertyForProjec
             RuleFor(x => x.ProjectId)
                 .GreaterThan(0);
 
-            RuleFor(x => x.Properties)
+            RuleFor(x => x.Units)
                 .NotEmpty()
                 .WithMessage("At least one property is required.");
 
-            // Validate each property باستخدام Validator تاني
-            RuleForEach(x => x.Properties)
+            RuleForEach(x => x.Units)
                 .SetValidator(new CreatePropertyDtoValidator());
 
-            // ❗ منع تكرار Title داخل نفس الـ Request
-            RuleFor(x => x.Properties)
+
+            RuleFor(x => x.Units)
                 .Must(properties =>
                     properties
                         .GroupBy(p => p.Name.Trim().ToLower())
@@ -57,11 +56,6 @@ namespace RealEstate.Application.Features.Projects.Commands.AddPropertyForProjec
               )}"
           );
 
-            RuleFor(x => x.PaymentType)
-                .NotEmpty()
-                .Must(p => p.ToLower() == "cash" || p.ToLower() == "installment")
-                .WithMessage("PaymentType must be 'Cash' or 'Installment'.");
-
             RuleFor(x => x.NoBathRoom)
                 .GreaterThanOrEqualTo(0);
             RuleFor(x => x.FloorNumber)
@@ -76,28 +70,10 @@ namespace RealEstate.Application.Features.Projects.Commands.AddPropertyForProjec
             RuleFor(x => x.NoKithchen)
                 .GreaterThanOrEqualTo(0);
 
-   
+            RuleForEach(x => x.PaymentPlans)
+            .SetValidator(new CreatePaymentplanValidator());
 
-            // ✅ Commission & Installment logic
-            When(x => x.PaymentType.ToLower() == "installment", () =>
-            {
-                RuleFor(x => x.InstallmentYears)
-                    .NotNull()
-                    .GreaterThan(0);
 
-                RuleFor(x => x.InstallmentDownPayment)
-                    .NotNull()
-                    .GreaterThanOrEqualTo(0);
-            });
-
-            When(x => x.PaymentType.ToLower() == "cash", () =>
-            {
-                RuleFor(x => x.InstallmentYears)
-                    .Equal(0);
-
-                RuleFor(x => x.InstallmentDownPayment)
-                    .Equal(0);
-            });
 
             RuleFor(x => x.View)
           .IsInEnum()
@@ -109,6 +85,39 @@ namespace RealEstate.Application.Features.Projects.Commands.AddPropertyForProjec
               )}"
           );
 
+        }
+    }
+
+    public class CreatePaymentplanValidator
+      : AbstractValidator<PaymentPlanDtoCreate>
+    {
+        public CreatePaymentplanValidator()
+        {
+
+            RuleFor(x => x.PaymentType)
+                .NotEmpty()
+                .Must(p => p.ToLower() == "cash" || p.ToLower() == "installment")
+                .WithMessage("PaymentType must be 'Cash' or 'Installment'.");
+
+            When(x => x.PaymentType != null &&
+             x.PaymentType.ToLower() == "installment", () =>
+             {
+                 RuleFor(x => x.InstallmentMonthes)
+                    .NotNull()
+                    .GreaterThan(0);
+
+                 RuleFor(x => x.InstallmentDownPayment)
+                    .InclusiveBetween(0, 100);
+             });
+
+            When(x => string.Equals(x.PaymentType, "cash", StringComparison.OrdinalIgnoreCase), () =>
+            {
+                RuleFor(x => x.InstallmentMonthes)
+                    .Equal(0);
+
+                RuleFor(x => x.InstallmentDownPayment)
+                    .Equal(0);
+            });
         }
     }
 }

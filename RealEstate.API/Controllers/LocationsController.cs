@@ -7,6 +7,8 @@ using RealEstate.Application.Features.Locations.Queries.GetLocationById;
 using RealEstate.Application.Features.Locations.Queries.GetLocations;
 using RealEstate.Application.Features.Locations.Models;
 
+using RealEstate.Application.Common.Models;
+
 namespace RealEstate.API.Controllers;
 
 [Authorize]
@@ -14,18 +16,18 @@ public class LocationsController : BaseApiController
 {
     [HttpGet]
     [AllowAnonymous]
-    public async Task<ActionResult<IEnumerable<LocationDto>>> Get([FromQuery] GetLocationsQuery query)
+    public async Task<ActionResult<ApiResponse<PaginatedList<LocationDto>>>> GetAll([FromQuery] GetLocationsQuery query)
     {
-        return Ok(await Mediator.Send(query));
+        var result = await Mediator.Send(query);
+        return Ok(new ApiResponse<PaginatedList<LocationDto>> { Success = true, Data = result });
     }
 
     [HttpGet("{id}")]
     [AllowAnonymous]
-    public async Task<ActionResult<LocationDto>> GetById(int id)
+    public async Task<ActionResult<ApiResponse<LocationDto>>> GetById(int id)
     {
         var result = await Mediator.Send(new GetLocationByIdQuery(id));
-        if (result == null) return NotFound();
-        return Ok(result);
+        return Ok(new ApiResponse<LocationDto> { Success = true, Data = result });
     }
 
     [HttpPost]
@@ -35,13 +37,11 @@ public class LocationsController : BaseApiController
         return Ok(await Mediator.Send(command));
     }
 
-    [HttpPut("{id}")]
+    [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<int>> Update(int id, UpdateLocationCommand command)
+    public async Task<ActionResult<int>> Update( UpdateLocationCommand command)
     {
-        if (id != command.Id) return BadRequest();
         var result = await Mediator.Send(command);
-        if (result == 0) return NotFound();
         return Ok(result);
     }
 

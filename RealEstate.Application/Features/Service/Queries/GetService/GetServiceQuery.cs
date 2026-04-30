@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using RealEstate.Application.Features.Facilities.Models;
 using System;
 using System.Collections.Generic;

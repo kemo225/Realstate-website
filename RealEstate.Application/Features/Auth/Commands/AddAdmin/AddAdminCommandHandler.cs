@@ -21,7 +21,7 @@ public class AddAdminCommandHandler : IRequestHandler<AddAdminCommand, Result<st
     {
         if(await _userManager.FindByEmailAsync(command.Request.Email) != null)
         {
-            throw new Exceptions.ValidtationException($"A user with the email '{command.Request.Email}' already exists.");
+            throw new Exceptions.ValidatationException($"A user with the email '{command.Request.Email}' already exists.");
         }
         var user = new ApplicationUser
         {
@@ -29,6 +29,7 @@ public class AddAdminCommandHandler : IRequestHandler<AddAdminCommand, Result<st
             Email = command.Request.Email,
             FirstName = command.Request.FirstName,
             LastName = command.Request.LastName,
+            CreatedAt = DateTime.UtcNow,
             EmailConfirmed = true // Admins created by other admins are pre-confirmed
         };
 

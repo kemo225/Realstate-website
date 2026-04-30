@@ -15,6 +15,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         : base(options)
     {
     }
+    public DbSet<Request> Requests => Set<Request>();
 
     public DbSet<Unit> Units => Set<Unit>();
     public DbSet<Project> Projects => Set<Project>();
@@ -23,8 +24,8 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<UnitFacility> UnitFacilities => Set<UnitFacility>();
     public DbSet<UnitImage> UnitImages => Set<UnitImage>();
     public DbSet<ProjectImage> ProjectImages => Set<ProjectImage>();
-    public DbSet<Owner> Owners => Set<Owner>();
-    public DbSet<UnitDetail> UnitDetails => Set<UnitDetail>();
+    public DbSet<Aplicant> Applicants => Set<Aplicant>();
+    public DbSet<PaymentPlan> PaymentPlans => Set<PaymentPlan>();
     public DbSet<Service> Services => Set<Service>();
     public DbSet<UnitService> UnitServices => Set<UnitService>();
 
@@ -32,10 +33,15 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Deal> Deals => Set<Deal>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
+    public DbSet<Developer> Developers => Set<Developer>();
+    public DbSet<DeveloperGallery> DeveloperGalleries => Set<DeveloperGallery>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        ConfigureCreatedByRelationships(builder);
+        ConfigureAuditRelationships(builder);
+
+        builder.Entity<Developer>().HasQueryFilter(d => !d.IsDeleted);
 
         builder.Entity<UnitFacility>()
             .HasKey(pf => new { pf.UnitId, pf.FacilityId });
@@ -53,11 +59,18 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         builder.Entity<Unit>().Property(p => p.Price).HasPrecision(18, 2);
         builder.Entity<Location>().Property(l => l.Latitude).HasPrecision(10, 8);
         builder.Entity<Location>().Property(l => l.Longitude).HasPrecision(11, 8);
+
+
+        builder.Entity<Request>()
+            .HasOne(u => u.ApprovedByUser)
+            .WithMany()
+            .HasForeignKey(u => u.ApprovedById)
+            .OnDelete(DeleteBehavior.Restrict);
    
 
     }
 
-    private static void ConfigureCreatedByRelationships(ModelBuilder builder)
+    private static void ConfigureAuditRelationships(ModelBuilder builder)
     {
         var auditableEntityTypes = builder.Model
             .GetEntityTypes()
@@ -66,9 +79,16 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
         foreach (var entityType in auditableEntityTypes)
         {
             builder.Entity(entityType.ClrType)
-                .HasOne(typeof(ApplicationUser), nameof(BaseEntity.CreatedByUser))
+                .HasOne(typeof(ApplicationUser), nameof(IAuditableEntity.CreatedByUser))
                 .WithMany()
                 .HasForeignKey(nameof(IAuditableEntity.CreatedById))
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            builder.Entity(entityType.ClrType)
+                .HasOne(typeof(ApplicationUser), nameof(IAuditableEntity.UpdatedByUser))
+                .WithMany()
+                .HasForeignKey(nameof(IAuditableEntity.UpdatedById))
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
         }

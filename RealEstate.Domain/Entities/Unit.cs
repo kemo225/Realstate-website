@@ -27,8 +27,12 @@ public class Unit : BaseEntity
 
     public ICollection<UnitImage> Images { get; set; } = new List<UnitImage>();
     public ICollection<UnitFacility> PropertyFacilities { get; set; } = new List<UnitFacility>();
-    public ICollection<UnitDetail> PropertyDetails { get; set; } = new List<UnitDetail>();
+    public ICollection<PaymentPlan> PaymentPlans { get; set; } = new List<PaymentPlan>();
     public ICollection<UnitService> UnitServices { get; set; } = new List<UnitService>();
+    public ICollection<Request> Requests { get; set; } = new List<Request>();
+    public ICollection<Lead> Leads { get; set; } = new List<Lead>();
+
+
 
 
     // Concurrency token

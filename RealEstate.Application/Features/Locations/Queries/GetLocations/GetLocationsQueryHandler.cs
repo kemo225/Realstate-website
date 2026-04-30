@@ -11,6 +11,8 @@ using RealEstate.Application.Features.Locations.Models;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace RealEstate.Application.Features.Locations.Queries.GetLocations;
 
 public class GetLocationsQueryHandler : IRequestHandler<GetLocationsQuery, PaginatedList<LocationDto>>
@@ -28,6 +30,7 @@ public class GetLocationsQueryHandler : IRequestHandler<GetLocationsQuery, Pagin
     {
         return await _unitOfWork.Repository<Location>()
             .Query()
+            .AsNoTracking()
             .ProjectTo<LocationDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

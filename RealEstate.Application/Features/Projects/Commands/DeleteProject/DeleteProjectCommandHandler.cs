@@ -21,7 +21,7 @@ public class DeleteProjectCommandHandler : IRequestHandler<DeleteProjectCommand,
         var project = await _unitOfWork.Repository<Project>().Query().Include(p=>p.Properties).FirstOrDefaultAsync(r=>r.Id==request.Id);
         
         if (project == null) throw new RealEstate.Application.Exceptions.NotFoundException("Project", request.Id);
-        if (project.Properties != null) throw new RealEstate.Application.Exceptions.ValidtationException($"Cannot Remove {project.Name} Is Related With Another Units");
+        if (project.Properties != null) throw new RealEstate.Application.Exceptions.ValidatationException($"Cannot Remove {project.Name} Is Related With Another Units");
 
 
         _unitOfWork.Repository<Project>().Delete(project);

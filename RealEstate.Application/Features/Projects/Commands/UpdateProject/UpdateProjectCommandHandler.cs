@@ -23,7 +23,7 @@ public class UpdateProjectCommandHandler : IRequestHandler<UpdateProjectCommand,
 
         project.Name = request.Name;
         project.Description = request.Description;
-        project.DeveloperName = request.DeveloperName;
+        project.DeveloperId = request.DeveloperId;
 
         _unitOfWork.Repository<Project>().Update(project);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

@@ -12,12 +12,12 @@ namespace RealEstate.Application.Features.Properties.Commands.UploadPropertyImag
 public class UploadPropertyImagesCommandHandler : IRequestHandler<UploadPropertyImagesCommand, Result<List<string>>>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IFileStorageService _fileStorageService;
+    private readonly IImageService _imageService;
 
-    public UploadPropertyImagesCommandHandler(IUnitOfWork unitOfWork, IFileStorageService fileStorageService)
+    public UploadPropertyImagesCommandHandler(IUnitOfWork unitOfWork, IImageService imageService)
     {
         _unitOfWork = unitOfWork;
-        _fileStorageService = fileStorageService;
+        _imageService = imageService;
     }
 
     public async Task<Result<List<string>>> Handle(UploadPropertyImagesCommand request, CancellationToken cancellationToken)
@@ -29,7 +29,7 @@ public class UploadPropertyImagesCommandHandler : IRequestHandler<UploadProperty
 
         foreach (var file in request.Files)
         {
-            var url = await _fileStorageService.UploadFileAsync(file, "properties");
+            var url = await _imageService.UploadAsync(file, "units");
             if (!string.IsNullOrEmpty(url))
             {
                 uploadedUrls.Add(url);

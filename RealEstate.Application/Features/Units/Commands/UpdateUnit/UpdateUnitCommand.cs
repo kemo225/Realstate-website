@@ -1,7 +1,7 @@
 using MediatR;
 using RealEstate.Domain.Entities;
 
-namespace RealEstate.Application.Features.Properties.Commands.UpdateProperty;
+namespace RealEstate.Application.Features.Units.Commands.UpdateUnit;
 
 public class UpdateUnitCommand : IRequest<int>
 {
@@ -10,13 +10,24 @@ public class UpdateUnitCommand : IRequest<int>
     public string Description { get; set; } = string.Empty;
     public decimal Price { get; set; }
     public PropertyType PropertyType { get; set; }
-    public string? PaymentType { get; set; }
-    public decimal? CmmisionRate { get; set; }
-    public decimal? installmentYears { get; set; }
-    public decimal ?installmentDownPayment { get; set; }
-
-
+    public int NoBathRoom { get; set; }
+    public int NoBedRoom { get; set; }
+    public int NoKitchen { get; set; }
+    public string? FloorName { get; set; }
+    public bool IsFeatured { get; set; }
 }
+//public string Name { get; set; } = string.Empty;
+//public string? Description { get; set; }
+//public decimal Price { get; set; }
+//public int Area { get; set; }
+//public int NoBathRoom { get; set; }
+//public int NoBedRoom { get; set; }
+//public int NoKitchen { get; set; }
+//public PropertyType PropertyType { get; set; } = PropertyType.Apartment;
+//public int FloorNumber { get; set; }
+//public enView View { get; set; } = enView.Mountain;
+//public string? FloorName { get; set; }
+//public bool IsFeatured { get; set; }
 
 //"commissionRate": 0,
 //  "installmentYears": 3,

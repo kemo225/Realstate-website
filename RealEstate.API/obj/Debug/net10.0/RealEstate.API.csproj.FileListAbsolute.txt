@@ -47,6 +47,7 @@ D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Microsoft.SqlServer.Server.
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Microsoft.VisualStudio.SolutionPersistence.dll
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Mono.TextTemplating.dll
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Newtonsoft.Json.dll
+D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\SixLabors.ImageSharp.dll
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.Swagger.dll
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 D:\RealStateWebsite\RealEstate.API\bin\Debug\net10.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -158,6 +159,7 @@ D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\RealEstate.API.AssemblyInfo
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\RealEstate.API.csproj.CoreCompileInputs.cache
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\RealEstate.API.MvcApplicationPartsAssemblyInfo.cs
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\RealEstate.API.MvcApplicationPartsAssemblyInfo.cache
+D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\RealEstate.API.sourcelink.json
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\rjimswa.dswa.cache.json
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\rjsmrazor.dswa.cache.json
 D:\RealStateWebsite\RealEstate.API\obj\Debug\net10.0\rjsmcshtml.dswa.cache.json

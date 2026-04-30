@@ -1,7 +1,7 @@
 using FluentValidation;
 using RealEstate.Domain.Entities;
 
-namespace RealEstate.Application.Features.Properties.Commands.UpdateProperty;
+namespace RealEstate.Application.Features.Units.Commands.UpdateUnit;
 
 public class UpdateUnitCommandValidator : AbstractValidator<UpdateUnitCommand>
 {
@@ -28,30 +28,20 @@ public class UpdateUnitCommandValidator : AbstractValidator<UpdateUnitCommand>
                )}"
            );
 
-        RuleFor(x => x.PaymentType)
-            .NotEmpty()
-            .Must(p => p.ToLower() == "cash" || p.ToLower() == "installment")
-            .WithMessage("PaymentType must be 'Cash' or 'Installment'.");
+        RuleFor(p => p.IsFeatured).NotEmpty().WithMessage("{IsFeatured} is required.");
 
-        When(x => x.PaymentType.ToLower() == "installment", () =>
-        {
-            RuleFor(x => x.installmentYears)
-                .NotNull()
-                .GreaterThan(0);
+        RuleFor(p => p.NoKitchen)
+            .GreaterThanOrEqualTo(0).WithMessage("{NoKitchen} must be greater than or equal to 0.");
 
-            RuleFor(x => x.installmentDownPayment)
-                .NotNull()
-                .GreaterThanOrEqualTo(0);
-        });
+        RuleFor(p => p.NoBathRoom)
+            .GreaterThanOrEqualTo(0).WithMessage("{NoBathRoom} must be greater than or equal to 0.");
+        RuleFor(p => p.NoBedRoom)
+            .GreaterThanOrEqualTo(0).WithMessage("{NoBedRoom} must be greater than or equal to 0.");
 
-        When(x => x.PaymentType.ToLower() == "cash", () =>
-        {
-            RuleFor(x => x.installmentYears)
-                .Equal(0);
 
-            RuleFor(x => x.installmentDownPayment)
-                .Equal(0);
-        });
+
+
+
     }
 }
 

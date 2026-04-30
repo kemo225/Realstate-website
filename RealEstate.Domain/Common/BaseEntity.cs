@@ -11,4 +11,5 @@ public abstract class BaseEntity : IAuditableEntity
     public ApplicationUser? CreatedByUser { get; set; }
     public DateTime? UpdatedAt { get; set; }
     public string? UpdatedById { get; set; }
+    public ApplicationUser? UpdatedByUser { get; set; }
 }

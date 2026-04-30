@@ -52,7 +52,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<AuthResp
         var accessToken = _tokenService.GenerateAccessToken(claims);
         var refreshToken = _tokenService.GenerateRefreshToken();
 
-        var refreshTokenEntity = new RefreshToken
+        var refreshTokenEntity = new Domain.Entities.RefreshToken
         {
             Token = refreshToken,
             Expires = System.DateTime.UtcNow.AddDays(7),
@@ -61,7 +61,7 @@ public class LoginCommandHandler : IRequestHandler<LoginCommand, Result<AuthResp
             CreatedById = user.Id
         };
 
-        await _unitOfWork.Repository<RefreshToken>().AddAsync(refreshTokenEntity);
+        await _unitOfWork.Repository<Domain.Entities.RefreshToken>().AddAsync(refreshTokenEntity);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return Result<AuthResponse>.Success(new AuthResponse(

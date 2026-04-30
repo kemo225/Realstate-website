@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Exceptions;
 using RealEstate.Application.Features.Facilities.Commands.DeleteFacility;
@@ -25,7 +25,7 @@ namespace RealEstate.Application.Features.Service.Commands.DeleteSercvice
             if (facilty == null)
                 throw new NotFoundException("");
             if (facilty.UnitServices != null && facilty.UnitServices.Count > 0)
-                throw new ValidtationException("Cannot delete service that is associated with properties.");
+                throw new ValidatationException("Cannot delete service that is associated with properties.");
             return true;
 
 

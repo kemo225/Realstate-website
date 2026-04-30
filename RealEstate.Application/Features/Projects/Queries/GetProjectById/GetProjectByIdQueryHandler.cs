@@ -7,6 +7,8 @@ using RealEstate.Application.Features.Projects.Models;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
 
+using AutoMapper.QueryableExtensions;
+
 namespace RealEstate.Application.Features.Projects.Queries.GetProjectById;
 
 public class GetProjectByIdQueryHandler : IRequestHandler<GetProjectByIdQuery, ProjectDto?>
@@ -22,8 +24,14 @@ public class GetProjectByIdQueryHandler : IRequestHandler<GetProjectByIdQuery, P
 
     public async Task<ProjectDto?> Handle(GetProjectByIdQuery request, CancellationToken cancellationToken)
     {
-        var project = await _unitOfWork.Repository<Project>().Query().Include(p => p.Location).Include(p=>p.Images).FirstOrDefaultAsync(r=>r.Id==request.Id);
+        var project = await _unitOfWork.Repository<Project>()
+            .Query()
+            .AsNoTracking()
+            .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync(r => r.Id == request.Id, cancellationToken);
+
         if (project == null) throw new RealEstate.Application.Exceptions.NotFoundException("Project", request.Id);
-        return _mapper.Map<ProjectDto>(project);
+
+        return project;
     }
 }

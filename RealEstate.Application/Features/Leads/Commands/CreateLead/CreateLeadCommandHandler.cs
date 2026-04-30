@@ -20,9 +20,9 @@ public class CreateLeadCommandHandler : IRequestHandler<CreateLeadCommand, Resul
     public async Task<Result<int>> Handle(CreateLeadCommand request, CancellationToken cancellationToken)
     {
         if(await _unitOfWork.Repository<Domain.Entities.Unit>().ExistsAsync(p => p.Id == request.UnitId) == false)
-            throw new ValidtationException("The specified property does not exist.");
-        if (await _unitOfWork.Repository<Lead>().ExistsAsync(l => l.Email == request.Email && l.PropertyId == request.UnitId))
-            throw new ValidtationException("A lead with the same email already exists for this property.");
+            throw new ValidatationException("The specified Unit does not exist.");
+        if (await _unitOfWork.Repository<Lead>().ExistsAsync(l => l.Email == request.Email && l.UnitId == request.UnitId))
+            throw new ValidatationException("A lead with the same email already exists for this property.");
 
 
 
@@ -31,7 +31,7 @@ public class CreateLeadCommandHandler : IRequestHandler<CreateLeadCommand, Resul
             FullName = request.FullName,
             Email = request.Email,
             Phone = request.Phone,
-            PropertyId = request.UnitId,
+            UnitId = request.UnitId,
             Notes = request.Notes,
             StatusLead = enStatusLead.Pending
         };

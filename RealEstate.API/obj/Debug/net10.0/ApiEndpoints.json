@@ -1,8 +1,39 @@
 [
   {
-    "ContainingType": "RealEstate.API.Controllers.AdminController",
+    "ContainingType": "RealEstate.API.Controllers.AdminsController",
+    "Method": "GetAdmins",
+    "RelativePath": "api/Admins",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Auth.Models.AdminListItemDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.AdminsController",
     "Method": "Update",
-    "RelativePath": "api/Admin/update",
+    "RelativePath": "api/Admins/update",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -16,6 +47,141 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "RealEstate.API.Controllers.ApplicantsController",
+    "Method": "GetOwners",
+    "RelativePath": "api/Applicants",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Owners.Queries.GetOwners.OwnerDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.ApplicantsController",
+    "Method": "CreateOwner",
+    "RelativePath": "api/Applicants",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Owners.Commands.CreateOwner.CreateApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.ApplicantsController",
+    "Method": "UpdateOwner",
+    "RelativePath": "api/Applicants",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Owners.Commands.UpdateOwner.UpdateApplicantCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.ApplicantsController",
+    "Method": "GetOwnerById",
+    "RelativePath": "api/Applicants/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Features.Owners.Queries.GetOwners.OwnerDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.ApplicantsController",
+    "Method": "DeleteOwner",
+    "RelativePath": "api/Applicants/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RealEstate.API.Controllers.AuthController",
     "Method": "AddAdmin",
     "RelativePath": "api/Auth/add-admin",
@@ -26,22 +192,6 @@
       {
         "Name": "request",
         "Type": "RealEstate.Application.Features.Auth.Commands.AddAdmin.AddAdminRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.AuthController",
-    "Method": "ForgotPassword",
-    "RelativePath": "api/Auth/forgot-password",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "request",
-        "Type": "RealEstate.Application.Features.Auth.Models.ForgotPasswordRequest",
         "IsRequired": true
       }
     ],
@@ -65,15 +215,31 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.AuthController",
-    "Method": "ResetPassword",
-    "RelativePath": "api/Auth/reset-password",
+    "Method": "Logout",
+    "RelativePath": "api/Auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "refreshToken",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.AuthController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/Auth/refresh-token",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "RealEstate.Application.Features.Auth.Models.ResetPasswordRequest",
+        "Type": "RealEstate.Application.Features.Auth.Models.RefreshTokenRequest",
         "IsRequired": true
       }
     ],
@@ -104,17 +270,27 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "PropertyId",
+        "Name": "UnitId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
-        "Name": "SearchTerm",
+        "Name": "ProjectId",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "DealLocation",
+        "Type": "System.Nullable\u00601[[RealEstate.Domain.Entities.enDealLocation, RealEstate.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "SortBy",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "Status",
+        "Name": "SortDirection",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -195,7 +371,105 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetDealsByProperty",
+    "Method": "GetCompletedDeals",
+    "RelativePath": "api/Deals/completed",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetLatestDeals",
+    "RelativePath": "api/Deals/latest",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetDealsByProject",
+    "RelativePath": "api/Deals/project/{projectId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetDealsByPropertyCompatibility",
     "RelativePath": "api/Deals/property/{propertyId}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -220,6 +494,373 @@
     "ReturnTypes": [
       {
         "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetDealsSoldInside",
+    "RelativePath": "api/Deals/sold-inside",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetDealsSoldOutside",
+    "RelativePath": "api/Deals/sold-outside",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DealsController",
+    "Method": "GetDealsByUnit",
+    "RelativePath": "api/Deals/unit/{unitId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "pageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "Create",
+    "RelativePath": "api/Developers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Developers.Commands.CreateDeveloper.CreateDeveloperCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "Update",
+    "RelativePath": "api/Developers",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Developers.Commands.UpdateDeveloper.UpdateDeveloperCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[MediatR.Unit, MediatR.Contracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "GetAll",
+    "RelativePath": "api/Developers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "SearchKeyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SortBy",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SortDescending",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Developers.Models.DeveloperDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "Delete",
+    "RelativePath": "api/Developers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[MediatR.Unit, MediatR.Contracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "GetById",
+    "RelativePath": "api/Developers/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Features.Developers.Models.DeveloperDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "UploadGallery",
+    "RelativePath": "api/Developers/{id}/gallery",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "files",
+        "Type": "System.Collections.Generic.List\u00601[[Microsoft.AspNetCore.Http.IFormFile, Microsoft.AspNetCore.Http.Features, Version=10.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "UploadLogo",
+    "RelativePath": "api/Developers/{id}/logo",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "DeleteLogo",
+    "RelativePath": "api/Developers/{id}/logo",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[MediatR.Unit, MediatR.Contracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.DevelopersController",
+    "Method": "DeleteGalleryImage",
+    "RelativePath": "api/Developers/gallery/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[MediatR.Unit, MediatR.Contracts, Version=2.0.1.0, Culture=neutral, PublicKeyToken=bb9a41a5e8aaa7e2]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -355,24 +996,14 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.LeadsController",
-    "Method": "GetLeads",
+    "Method": "GetAll",
     "RelativePath": "api/Leads",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "SearchTerm",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Status",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "PropertyId",
+        "Name": "UnitId",
         "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
@@ -389,7 +1020,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Leads.Models.LeadDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Leads.Models.LeadDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -427,7 +1058,7 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.LeadsController",
-    "Method": "GetLeadById",
+    "Method": "GetById",
     "RelativePath": "api/Leads/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -441,7 +1072,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Features.Leads.Models.LeadDto",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Features.Leads.Models.LeadDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -454,13 +1085,39 @@
   {
     "ContainingType": "RealEstate.API.Controllers.LeadsController",
     "Method": "DeleteLead",
-    "RelativePath": "api/Leads/{id}",
-    "HttpMethod": "DELETE",
+    "RelativePath": "api/Leads/cancel/lead/{LeadId}",
+    "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "LeadId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.LeadsController",
+    "Method": "ViewdLead",
+    "RelativePath": "api/Leads/view/lead/{LeadId}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "LeadId",
         "Type": "System.Int32",
         "IsRequired": true
       }
@@ -479,7 +1136,7 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.LocationsController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/Locations",
     "HttpMethod": "GET",
     "IsController": true,
@@ -498,7 +1155,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[RealEstate.Application.Features.Locations.Models.LocationDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Locations.Models.LocationDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -536,6 +1193,32 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.LocationsController",
+    "Method": "Update",
+    "RelativePath": "api/Locations",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Locations.Commands.UpdateLocation.UpdateLocationCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.LocationsController",
     "Method": "GetById",
     "RelativePath": "api/Locations/{id}",
     "HttpMethod": "GET",
@@ -550,38 +1233,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Features.Locations.Models.LocationDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.LocationsController",
-    "Method": "Update",
-    "RelativePath": "api/Locations/{id}",
-    "HttpMethod": "PUT",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "command",
-        "Type": "RealEstate.Application.Features.Locations.Commands.UpdateLocation.UpdateLocationCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Int32",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Features.Locations.Models.LocationDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -618,47 +1270,16 @@
     ]
   },
   {
-    "ContainingType": "RealEstate.API.Controllers.OwnersController",
-    "Method": "GetOwners",
-    "RelativePath": "api/Owners",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "PageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "PageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Owners.Queries.GetOwners.OwnerDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.OwnersController",
-    "Method": "CreateOwner",
-    "RelativePath": "api/Owners",
+    "ContainingType": "RealEstate.API.Controllers.PaymentPlansController",
+    "Method": "Create",
+    "RelativePath": "api/payment-plans",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "command",
-        "Type": "RealEstate.Application.Features.Owners.Commands.CreateOwner.CreateOwnerCommand",
+        "Type": "RealEstate.Application.Features.PaymentPlans.Commands.CreatePaymentPlan.CreatePaymentPlanCommand",
         "IsRequired": true
       }
     ],
@@ -675,53 +1296,22 @@
     ]
   },
   {
-    "ContainingType": "RealEstate.API.Controllers.OwnersController",
-    "Method": "GetOwnerById",
-    "RelativePath": "api/Owners/{id}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Features.Owners.Queries.GetOwners.OwnerDto",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.OwnersController",
-    "Method": "UpdateOwner",
-    "RelativePath": "api/Owners/{id}",
+    "ContainingType": "RealEstate.API.Controllers.PaymentPlansController",
+    "Method": "Update",
+    "RelativePath": "api/payment-plans",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
         "Name": "command",
-        "Type": "RealEstate.Application.Features.Owners.Commands.UpdateOwner.UpdateOwnerCommand",
+        "Type": "RealEstate.Application.Features.PaymentPlans.Commands.UpdatePaymentPlan.UpdatePaymentPlanCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -732,9 +1322,9 @@
     ]
   },
   {
-    "ContainingType": "RealEstate.API.Controllers.OwnersController",
-    "Method": "DeleteOwner",
-    "RelativePath": "api/Owners/{id}",
+    "ContainingType": "RealEstate.API.Controllers.PaymentPlansController",
+    "Method": "Delete",
+    "RelativePath": "api/payment-plans/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -758,8 +1348,34 @@
     ]
   },
   {
+    "ContainingType": "RealEstate.API.Controllers.PaymentPlansController",
+    "Method": "GetByUnitId",
+    "RelativePath": "api/payment-plans/unit/{unitId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "unitId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Collections.Generic.IEnumerable\u00601[[RealEstate.Application.Features.PaymentPlans.Models.UnitPaymentPlanDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RealEstate.API.Controllers.ProjectsController",
-    "Method": "Get",
+    "Method": "GetAll",
     "RelativePath": "api/Projects",
     "HttpMethod": "GET",
     "IsController": true,
@@ -778,7 +1394,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[RealEstate.Application.Features.Projects.Models.ProjectDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Projects.Models.ProjectDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -830,7 +1446,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Features.Projects.Models.ProjectDto",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Features.Projects.Models.ProjectDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -918,7 +1534,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -949,7 +1565,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -980,7 +1596,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1011,7 +1627,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1083,13 +1699,153 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "RealEstate.Application.Features.Properties.Commands.UpdateProperty.UpdateUnitCommand",
+        "Type": "RealEstate.Application.Features.Units.Commands.UpdateUnit.UpdateUnitCommand",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
         "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.RequestsController",
+    "Method": "GetAll",
+    "RelativePath": "api/Requests",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Status",
+        "Type": "System.Nullable\u00601[[RealEstate.Domain.Entities.RequestStatus, RealEstate.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Requests.Models.RequestDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.RequestsController",
+    "Method": "Create",
+    "RelativePath": "api/Requests",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "RealEstate.Application.Features.Requests.Commands.CreateRequest.CreateRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.RequestsController",
+    "Method": "GetById",
+    "RelativePath": "api/Requests/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[RealEstate.Application.Features.Requests.Models.RequestDetailsDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.RequestsController",
+    "Method": "Reject",
+    "RelativePath": "api/Requests/{id}/reject",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.RequestsController",
+    "Method": "Approve",
+    "RelativePath": "api/Requests/approve",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "RealEstate.Application.Features.Requests.Commands.ApproveRequest.ApproveRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.ApiResponse\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1224,94 +1980,6 @@
     ]
   },
   {
-    "ContainingType": "RealEstate.API.Controllers.UnitRequestsController",
-    "Method": "Create",
-    "RelativePath": "api/UnitRequests",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "command",
-        "Type": "RealEstate.Application.Features.Properties.Commands.CreateProperty.CreateRequestPropertPayCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "System.Int32",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.UnitRequestsController",
-    "Method": "Approve",
-    "RelativePath": "api/UnitRequests/{id}/approve",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "command",
-        "Type": "RealEstate.Application.Features.PropertyDetails.ApproveProperty.ApprovePropertyCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.Result",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.UnitRequestsController",
-    "Method": "Reject",
-    "RelativePath": "api/UnitRequests/{id}/reject",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Int32",
-        "IsRequired": true
-      },
-      {
-        "Name": "command",
-        "Type": "RealEstate.Application.Features.Properties.Commands.RejectProperty.RejectPropertyCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.Result",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
     "ContainingType": "RealEstate.API.Controllers.UnitsController",
     "Method": "Get",
     "RelativePath": "api/Units",
@@ -1325,16 +1993,6 @@
         "IsRequired": false
       },
       {
-        "Name": "PropertyType",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "Status",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
         "Name": "MinPrice",
         "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
@@ -1342,11 +2000,6 @@
       {
         "Name": "MaxPrice",
         "Type": "System.Nullable\u00601[[System.Decimal, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "LocationId",
-        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -1367,7 +2020,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[RealEstate.Application.Features.Properties.Models.PropertyDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[RealEstate.Application.Features.Properties.Models.UnitDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -1393,7 +2046,33 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "RealEstate.Application.Features.Properties.Models.PropertyDto",
+        "Type": "RealEstate.Application.Features.Properties.Models.UnitDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.UnitsController",
+    "Method": "MarkAsSold",
+    "RelativePath": "api/Units/{id}/sold",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.Result\u00601[[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "MediaTypes": [
           "text/plain",
           "application/json",

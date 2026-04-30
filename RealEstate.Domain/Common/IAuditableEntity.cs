@@ -10,4 +10,5 @@ public interface IAuditableEntity
     ApplicationUser? CreatedByUser { get; set; }
     DateTime? UpdatedAt { get; set; }
     string? UpdatedById { get; set; }
+    ApplicationUser? UpdatedByUser { get; set; }
 }

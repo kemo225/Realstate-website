@@ -68,7 +68,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
-        services.AddScoped<IFileStorageService, LocalFileStorageService>();
+        services.AddScoped<IImageService, ImageService>();
         services.AddScoped<ITokenService, TokenService>();
 
         return services;

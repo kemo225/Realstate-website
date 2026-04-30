@@ -155,6 +155,49 @@ namespace RealEstate.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("RealEstate.Domain.Entities.Aplicant", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Applicants");
+                });
+
             modelBuilder.Entity("RealEstate.Domain.Entities.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -166,6 +209,9 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasMaxLength(256)
@@ -251,16 +297,17 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<DateTime>("DealDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("DealType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("LeadId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("OwnerId1")
+                    b.Property<int>("LocationDeal")
                         .HasColumnType("int");
 
                     b.Property<string>("Phone")
@@ -272,14 +319,14 @@ namespace RealEstate.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<int>("UnitRequestId")
+                    b.Property<int?>("UnitPlanId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -287,14 +334,93 @@ namespace RealEstate.Infrastructure.Migrations
 
                     b.HasIndex("LeadId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("UnitPlanId")
+                        .IsUnique()
+                        .HasFilter("[UnitPlanId] IS NOT NULL");
 
-                    b.HasIndex("OwnerId1");
-
-                    b.HasIndex("UnitRequestId")
-                        .IsUnique();
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Deals");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Developer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LogoImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Developers");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.DeveloperGallery", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("DeveloperId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("DeveloperId");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("DeveloperGalleries");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Facility", b =>
@@ -319,11 +445,13 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Facilities");
                 });
@@ -356,26 +484,25 @@ namespace RealEstate.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PropertyId")
+                    b.Property<int>("StatusLead")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusLead")
+                    b.Property<int>("UnitId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool?>("isActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("PropertyId");
+                    b.HasIndex("UnitId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Leads");
                 });
@@ -405,13 +532,13 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<string>("District")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Latitude")
+                    b.Property<string>("Latitude")
                         .HasPrecision(10, 8)
-                        .HasColumnType("decimal(10,8)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal?>("Longitude")
+                    b.Property<string>("Longitude")
                         .HasPrecision(11, 8)
-                        .HasColumnType("decimal(11,8)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -420,16 +547,18 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("UpdatedById");
+
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("RealEstate.Domain.Entities.Owner", b =>
+            modelBuilder.Entity("RealEstate.Domain.Entities.PaymentPlan", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -437,37 +566,45 @@ namespace RealEstate.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal?>("CommissionRate")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("CreatedById")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("InstallmentDownPayment")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("InstallmentMothes")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Notes")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("PaymentType")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("Owners");
+                    b.HasIndex("UnitId");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("PaymentPlans");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Project", b =>
@@ -487,8 +624,8 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("DeveloperName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("DeveloperId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("LocationId")
                         .HasColumnType("int");
@@ -501,13 +638,17 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("DeveloperId");
+
                     b.HasIndex("LocationId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Projects");
                 });
@@ -537,13 +678,15 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("ProjectId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("ProjectImages");
                 });
@@ -576,7 +719,7 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -586,7 +729,59 @@ namespace RealEstate.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
+                    b.HasIndex("UpdatedById");
+
                     b.ToTable("RefreshTokens");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ApplicantId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ApprovedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApplicantId");
+
+                    b.HasIndex("ApprovedById");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UnitId");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Service", b =>
@@ -611,11 +806,13 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("Services");
                 });
@@ -665,9 +862,6 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<int>("NoKitchen")
                         .HasColumnType("int");
 
-                    b.Property<int?>("OwnerId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
@@ -691,7 +885,7 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("View")
                         .HasColumnType("int");
@@ -700,64 +894,11 @@ namespace RealEstate.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.HasIndex("OwnerId");
-
                     b.HasIndex("ProjectId");
 
+                    b.HasIndex("UpdatedById");
+
                     b.ToTable("Units");
-                });
-
-            modelBuilder.Entity("RealEstate.Domain.Entities.UnitDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("ApprovedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("ApprovedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("CommissionRate")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedById")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal?>("InstallmentDownPayment")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int?>("InstallmentYears")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PaymentType")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UnitId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatedById");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("UnitDetails");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.UnitFacility", b =>
@@ -809,13 +950,15 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CreatedById");
 
                     b.HasIndex("PropertyId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("UnitImages");
                 });
@@ -844,7 +987,7 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("UpdatedById")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -853,6 +996,8 @@ namespace RealEstate.Infrastructure.Migrations
                     b.HasIndex("ServiceId");
 
                     b.HasIndex("UnitId");
+
+                    b.HasIndex("UpdatedById");
 
                     b.ToTable("UnitServices");
                 });
@@ -908,6 +1053,23 @@ namespace RealEstate.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("RealEstate.Domain.Entities.Aplicant", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("RealEstate.Domain.Entities.Deal", b =>
                 {
                     b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
@@ -919,23 +1081,62 @@ namespace RealEstate.Infrastructure.Migrations
                         .WithMany("Deals")
                         .HasForeignKey("LeadId");
 
-                    b.HasOne("RealEstate.Domain.Entities.Owner", null)
-                        .WithMany("BoughtDeals")
-                        .HasForeignKey("OwnerId");
-
-                    b.HasOne("RealEstate.Domain.Entities.Owner", null)
-                        .WithMany("SoldDeals")
-                        .HasForeignKey("OwnerId1");
-
-                    b.HasOne("RealEstate.Domain.Entities.UnitDetail", "UnitRequest")
+                    b.HasOne("RealEstate.Domain.Entities.PaymentPlan", "PaymentPlan")
                         .WithOne("Deal")
-                        .HasForeignKey("RealEstate.Domain.Entities.Deal", "UnitRequestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("RealEstate.Domain.Entities.Deal", "UnitPlanId");
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("CreatedByUser");
 
-                    b.Navigation("UnitRequest");
+                    b.Navigation("PaymentPlan");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Developer", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.DeveloperGallery", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.Developer", "Developer")
+                        .WithMany("Gallery")
+                        .HasForeignKey("DeveloperId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Developer");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Facility", b =>
@@ -945,7 +1146,14 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Lead", b =>
@@ -955,15 +1163,22 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RealEstate.Domain.Entities.Unit", "Property")
-                        .WithMany()
-                        .HasForeignKey("PropertyId")
+                    b.HasOne("RealEstate.Domain.Entities.Unit", "Unit")
+                        .WithMany("Leads")
+                        .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
-                    b.Navigation("Property");
+                    b.Navigation("Unit");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Location", b =>
@@ -973,17 +1188,39 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
-            modelBuilder.Entity("RealEstate.Domain.Entities.Owner", b =>
+            modelBuilder.Entity("RealEstate.Domain.Entities.PaymentPlan", b =>
                 {
                     b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
                         .WithMany()
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.Unit", "Unit")
+                        .WithMany("PaymentPlans")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("Unit");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Project", b =>
@@ -993,13 +1230,26 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.Developer", "Developer")
+                        .WithMany("Projects")
+                        .HasForeignKey("DeveloperId");
+
                     b.HasOne("RealEstate.Domain.Entities.Location", "Location")
                         .WithMany()
                         .HasForeignKey("LocationId");
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
+                    b.Navigation("Developer");
+
                     b.Navigation("Location");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.ProjectImage", b =>
@@ -1015,9 +1265,16 @@ namespace RealEstate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("Project");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.RefreshToken", b =>
@@ -1027,7 +1284,54 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Request", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.Aplicant", "Applicant")
+                        .WithMany("Requests")
+                        .HasForeignKey("ApplicantId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "ApprovedByUser")
+                        .WithMany()
+                        .HasForeignKey("ApprovedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.Unit", "Unit")
+                        .WithMany("Requests")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Applicant");
+
+                    b.Navigation("ApprovedByUser");
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Unit");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Service", b =>
@@ -1037,7 +1341,14 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Unit", b =>
@@ -1047,37 +1358,22 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasForeignKey("CreatedById")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("RealEstate.Domain.Entities.Owner", null)
-                        .WithMany("Properties")
-                        .HasForeignKey("OwnerId");
-
                     b.HasOne("RealEstate.Domain.Entities.Project", "Project")
                         .WithMany("Properties")
                         .HasForeignKey("ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("Project");
-                });
 
-            modelBuilder.Entity("RealEstate.Domain.Entities.UnitDetail", b =>
-                {
-                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("RealEstate.Domain.Entities.Unit", "Unit")
-                        .WithMany("PropertyDetails")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedByUser");
-
-                    b.Navigation("Unit");
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.UnitFacility", b =>
@@ -1112,9 +1408,16 @@ namespace RealEstate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("Property");
+
+                    b.Navigation("UpdatedByUser");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.UnitService", b =>
@@ -1136,11 +1439,30 @@ namespace RealEstate.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("Service");
 
                     b.Navigation("Unit");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Aplicant", b =>
+                {
+                    b.Navigation("Requests");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.Developer", b =>
+                {
+                    b.Navigation("Gallery");
+
+                    b.Navigation("Projects");
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Facility", b =>
@@ -1153,13 +1475,10 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Navigation("Deals");
                 });
 
-            modelBuilder.Entity("RealEstate.Domain.Entities.Owner", b =>
+            modelBuilder.Entity("RealEstate.Domain.Entities.PaymentPlan", b =>
                 {
-                    b.Navigation("BoughtDeals");
-
-                    b.Navigation("Properties");
-
-                    b.Navigation("SoldDeals");
+                    b.Navigation("Deal")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RealEstate.Domain.Entities.Project", b =>
@@ -1178,17 +1497,15 @@ namespace RealEstate.Infrastructure.Migrations
                 {
                     b.Navigation("Images");
 
-                    b.Navigation("PropertyDetails");
+                    b.Navigation("Leads");
+
+                    b.Navigation("PaymentPlans");
 
                     b.Navigation("PropertyFacilities");
 
-                    b.Navigation("UnitServices");
-                });
+                    b.Navigation("Requests");
 
-            modelBuilder.Entity("RealEstate.Domain.Entities.UnitDetail", b =>
-                {
-                    b.Navigation("Deal")
-                        .IsRequired();
+                    b.Navigation("UnitServices");
                 });
 #pragma warning restore 612, 618
         }

@@ -6,6 +6,9 @@ using RealEstate.Application.Features.Locations.Models;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+using AutoMapper.QueryableExtensions;
+
 namespace RealEstate.Application.Features.Locations.Queries.GetLocationById;
 
 public class GetLocationByIdQueryHandler : IRequestHandler<GetLocationByIdQuery, LocationDto?>
@@ -21,8 +24,14 @@ public class GetLocationByIdQueryHandler : IRequestHandler<GetLocationByIdQuery,
 
     public async Task<LocationDto?> Handle(GetLocationByIdQuery request, CancellationToken cancellationToken)
     {
-        var location = await _unitOfWork.Repository<Location>().GetByIdAsync(request.Id);
+        var location = await _unitOfWork.Repository<Location>()
+            .Query()
+            .AsNoTracking()
+            .ProjectTo<LocationDto>(_mapper.ConfigurationProvider)
+            .FirstOrDefaultAsync(l => l.Id == request.Id, cancellationToken);
+
         if (location == null) throw new RealEstate.Application.Exceptions.NotFoundException("Location", request.Id);
-        return _mapper.Map<LocationDto>(location);
+
+        return location;
     }
 }

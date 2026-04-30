@@ -12,5 +12,7 @@ public class CreateProjectCommandValidator : AbstractValidator<CreateProjectComm
 
         RuleFor(p => p.LocationId)
             .NotEmpty().WithMessage("LocationId is required.");
+        RuleFor(p => p.DeveloperId)
+    .NotEmpty().WithMessage("DeveloperId is required.");
     }
 }

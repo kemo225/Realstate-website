@@ -10,6 +10,8 @@ using RealEstate.Application.Features.Projects.Models;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+
 namespace RealEstate.Application.Features.Projects.Queries.GetProjects;
 
 public class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, PaginatedList<ProjectDto>>
@@ -27,6 +29,7 @@ public class GetProjectsQueryHandler : IRequestHandler<GetProjectsQuery, Paginat
     {
         return await _unitOfWork.Repository<Project>()
             .Query()
+            .AsNoTracking()
             .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
             .PaginatedListAsync(request.PageNumber, request.PageSize);
     }

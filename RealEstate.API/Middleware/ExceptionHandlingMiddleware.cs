@@ -43,26 +43,35 @@ public class ExceptionHandlingMiddleware
             case ValidationException validationException:
                 statusCode = HttpStatusCode.BadRequest;
                 message = "Validation failed";
-                
                 var validationErrors = new Dictionary<string, string[]>();
                 foreach (var group in validationException.Errors.GroupBy(e => e.PropertyName))
-                {
                     validationErrors.Add(group.Key, group.Select(e => e.ErrorMessage).ToArray());
-                }
                 errors = validationErrors;
                 break;
-            case NotFoundException:
+
+            case NotFoundException notFoundException:
                 statusCode = HttpStatusCode.NotFound;
-                message = "Entity not found";
-                errors = null;
+                message = notFoundException.Message;
                 break;
-            case ValidtationException:
+
+            case BadRequestException badRequestException:
                 statusCode = HttpStatusCode.BadRequest;
-                message = "Validation failed";
-                errors = null;
+                message = badRequestException.Message;
                 break;
+
+            case ValidatationException validatationException:
+                statusCode = HttpStatusCode.BadRequest;
+                message = validatationException.Message;
+                break;
+
+            case UnauthorizedException unauthorizedException:
+                statusCode = HttpStatusCode.Unauthorized;
+                message = unauthorizedException.Message;
+                break;
+
             default:
                 statusCode = HttpStatusCode.InternalServerError;
+                message = "An unexpected error occurred.";
                 errors = new[] { exception.Message };
                 break;
         }

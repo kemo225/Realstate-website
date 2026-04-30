@@ -30,7 +30,9 @@ public static class ApplicationDbContextSeed
                 UserName = adminEmail,
                 Email = adminEmail,
                 FirstName = "System",
-                LastName = "Admin"            };
+                LastName = "Admin",
+                CreatedAt = DateTime.UtcNow
+            };
 
             await userManager.CreateAsync(administrator, "Admin123!");
         }
@@ -74,12 +76,12 @@ public static class ApplicationDbContextSeed
             await context.SaveChangesAsync();
         }
 
-        if (!context.Owners.Any())
+        if (!context.Applicants.Any())
         {
-            context.Owners.AddRange(new List<Owner>
+            context.Applicants.AddRange(new List<Aplicant>
             {
-                new Owner { FullName = "John Doe", Phone = "0123456789", CreatedAt = DateTime.UtcNow, CreatedById = createdById },
-                new Owner { FullName = "Jane Smith", Phone = "0987654321", CreatedAt = DateTime.UtcNow, CreatedById = createdById }
+                new Aplicant { FullName = "John Doe", Phone = "0123456789", CreatedAt = DateTime.UtcNow, CreatedById = createdById },
+                new Aplicant { FullName = "Jane Smith", Phone = "0987654321", CreatedAt = DateTime.UtcNow, CreatedById = createdById }
             });
             await context.SaveChangesAsync();
         }

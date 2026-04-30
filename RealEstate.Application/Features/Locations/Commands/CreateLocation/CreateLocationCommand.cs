@@ -8,6 +8,6 @@ public class CreateLocationCommand : IRequest<int>
     public string District { get; set; } = string.Empty;
     public string Street { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
-    public decimal? Latitude { get; set; }
-    public decimal? Longitude { get; set; }
+    public string? Latitude { get; set; }
+    public string? Longitude { get; set; }
 }
