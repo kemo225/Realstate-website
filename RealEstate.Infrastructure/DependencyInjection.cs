@@ -44,7 +44,7 @@ public static class DependencyInjection
         .AddDefaultTokenProviders();
 
         var jwtSettings = configuration.GetSection("JwtSettings");
-        var secretKey = jwtSettings.GetValue<string>("Key") ?? "YourSuperSecretKeyGoesHereAndMustBeLongEnough";
+        var secretKey = jwtSettings.GetValue<string>("Key");
 
         services.AddAuthentication(options =>
         {

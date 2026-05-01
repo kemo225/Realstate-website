@@ -3897,13 +3897,6 @@
             "type": "string",
             "nullable": true
           },
-          "locationDeal": {
-            "type": "string",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean"
-          },
           "unit": {
             "$ref": "#/components/schemas/DealUnitBasicDto"
           },
@@ -3947,13 +3940,6 @@
           "dealType": {
             "type": "string",
             "nullable": true
-          },
-          "locationDeal": {
-            "type": "string",
-            "nullable": true
-          },
-          "isCompleted": {
-            "type": "boolean"
           },
           "unit": {
             "$ref": "#/components/schemas/DealUnitBasicDto"

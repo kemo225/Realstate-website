@@ -1,0 +1,13 @@
+D:\RealStateWebsite\RealEstate.Domain\bin\Release\net10.0\RealEstate.Domain.deps.json
+D:\RealStateWebsite\RealEstate.Domain\bin\Release\net10.0\RealEstate.Domain.dll
+D:\RealStateWebsite\RealEstate.Domain\bin\Release\net10.0\RealEstate.Domain.pdb
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.csproj.AssemblyReference.cache
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.AssemblyInfoInputs.cache
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.AssemblyInfo.cs
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.csproj.CoreCompileInputs.cache
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.sourcelink.json
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.dll
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\refint\RealEstate.Domain.dll
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\RealEstate.Domain.pdb
+D:\RealStateWebsite\RealEstate.Domain\obj\Release\net10.0\ref\RealEstate.Domain.dll
