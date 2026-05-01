@@ -58,46 +58,16 @@ public class DealsController : BaseApiController
             PageSize: pageSize)));
     }
 
-    [HttpGet("completed")]
-    public async Task<ActionResult<PaginatedList<DealDto>>> GetCompletedDeals(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10)
-    {
-        return Ok(await Mediator.Send(new GetDealsQuery(
-            PageNumber: pageNumber,
-            PageSize: pageSize)));
-    }
 
-    [HttpGet("sold-outside")]
-    public async Task<ActionResult<PaginatedList<DealDto>>> GetDealsSoldOutside(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10)
-    {
-        return Ok(await Mediator.Send(new GetDealsQuery(
-            DealLocation: RealEstate.Domain.Entities.enDealLocation.SoldOutside,
-            PageNumber: pageNumber,
-            PageSize: pageSize)));
-    }
 
-    [HttpGet("sold-inside")]
-    public async Task<ActionResult<PaginatedList<DealDto>>> GetDealsSoldInside(
-        [FromQuery] int pageNumber = 1,
-        [FromQuery] int pageSize = 10)
-    {
-        return Ok(await Mediator.Send(new GetDealsQuery(
-            DealLocation: RealEstate.Domain.Entities.enDealLocation.SoldInside,
-            PageNumber: pageNumber,
-            PageSize: pageSize)));
-    }
-
-    [HttpGet("property/{propertyId:int}")]
+    [HttpGet("unit/{unitId:int}/compatibility")]
     public async Task<ActionResult<PaginatedList<DealDto>>> GetDealsByPropertyCompatibility(
-        int propertyId,
+        int unitId,
         [FromQuery] int pageNumber = 1,
         [FromQuery] int pageSize = 10)
     {
         return Ok(await Mediator.Send(new GetDealsQuery(
-            UnitId: propertyId,
+            UnitId: unitId,
             PageNumber: pageNumber,
             PageSize: pageSize)));
     }

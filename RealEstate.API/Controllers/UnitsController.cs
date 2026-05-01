@@ -30,11 +30,11 @@ namespace RealEstate.API.Controllers
             var result = await Mediator.Send(new GetUnitByIdQuery(id));
             return Ok(result);
         }
-        [HttpPut("{id}/sold")]
+        [HttpPut("marksold")]
         [Authorize(Roles = "Admin,SuperAdmin")] // Assuming Admin role, adjust if needed
-        public async Task<ActionResult<RealEstate.Application.Common.Models.Result<bool>>> MarkAsSold(int id)
+        public async Task<ActionResult<RealEstate.Application.Common.Models.Result<bool>>> MarkAsSold([FromQuery] int id, [FromQuery] string Notes)
         {
-            var result = await Mediator.Send(new RealEstate.Application.Features.Units.Commands.MarkUnitAsSold.MarkUnitAsSoldCommand(id));
+            var result = await Mediator.Send(new RealEstate.Application.Features.Units.Commands.MarkUnitAsSold.MarkUnitAsSoldCommand(id, Notes));
             return Ok(RealEstate.Application.Common.Models.Result<bool>.Success(result));
         }
     }

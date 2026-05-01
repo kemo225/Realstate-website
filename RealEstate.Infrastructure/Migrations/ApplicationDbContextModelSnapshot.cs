@@ -307,9 +307,6 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<int?>("LeadId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LocationDeal")
-                        .HasColumnType("int");
-
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");
 
@@ -319,7 +316,7 @@ namespace RealEstate.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<int?>("UnitPlanId")
+                    b.Property<int>("UnitPlanId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("UpdatedAt")
@@ -335,8 +332,7 @@ namespace RealEstate.Infrastructure.Migrations
                     b.HasIndex("LeadId");
 
                     b.HasIndex("UnitPlanId")
-                        .IsUnique()
-                        .HasFilter("[UnitPlanId] IS NOT NULL");
+                        .IsUnique();
 
                     b.HasIndex("UpdatedById");
 
@@ -1002,6 +998,51 @@ namespace RealEstate.Infrastructure.Migrations
                     b.ToTable("UnitServices");
                 });
 
+            modelBuilder.Entity("RealEstate.Domain.Entities.UnitSoldout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SoldType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SoldoutDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UnitId");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.ToTable("UnitSoldouts");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -1083,7 +1124,9 @@ namespace RealEstate.Infrastructure.Migrations
 
                     b.HasOne("RealEstate.Domain.Entities.PaymentPlan", "PaymentPlan")
                         .WithOne("Deal")
-                        .HasForeignKey("RealEstate.Domain.Entities.Deal", "UnitPlanId");
+                        .HasForeignKey("RealEstate.Domain.Entities.Deal", "UnitPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
                         .WithMany()
@@ -1453,6 +1496,31 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Navigation("UpdatedByUser");
                 });
 
+            modelBuilder.Entity("RealEstate.Domain.Entities.UnitSoldout", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.Unit", "Unit")
+                        .WithMany("UnitSoldOuts")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
+
+                    b.Navigation("Unit");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
             modelBuilder.Entity("RealEstate.Domain.Entities.Aplicant", b =>
                 {
                     b.Navigation("Requests");
@@ -1506,6 +1574,8 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Navigation("Requests");
 
                     b.Navigation("UnitServices");
+
+                    b.Navigation("UnitSoldOuts");
                 });
 #pragma warning restore 612, 618
         }

@@ -22,8 +22,11 @@ public class UploadPropertyImagesCommandHandler : IRequestHandler<UploadProperty
 
     public async Task<Result<List<string>>> Handle(UploadPropertyImagesCommand request, CancellationToken cancellationToken)
     {
-        var property = await _unitOfWork.Repository<Domain.Entities.Unit>().GetByIdAsync(request.PropertyId);
-        if (property == null) throw new RealEstate.Application.Exceptions.NotFoundException("Property", request.PropertyId);
+        var Unit = await _unitOfWork.Repository<Domain.Entities.Unit>().GetByIdAsync(request.PropertyId);
+        if (Unit == null) throw new RealEstate.Application.Exceptions.NotFoundException("Unit", request.PropertyId);
+
+        if(!Unit.IsActive)
+            throw new RealEstate.Application.Exceptions.ValidatationException("Unit is not active");
 
         var uploadedUrls = new List<string>();
 
@@ -33,11 +36,11 @@ public class UploadPropertyImagesCommandHandler : IRequestHandler<UploadProperty
             if (!string.IsNullOrEmpty(url))
             {
                 uploadedUrls.Add(url);
-                property.Images.Add(new UnitImage
+                Unit.Images.Add(new UnitImage
                 {
                     ImageUrl = url,
-                    IsPrimary = property.Images.Count == 0,
-                    SortOrder = property.Images.Count
+                    IsPrimary = Unit.Images.Count == 0,
+                    SortOrder = Unit.Images.Count
                 });
             }
         }

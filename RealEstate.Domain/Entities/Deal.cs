@@ -8,9 +8,8 @@ namespace RealEstate.Domain.Entities;
 public class Deal : BaseEntity
 {
     [ForeignKey("PaymentPlan")]
-    public int? UnitPlanId { get; set; }
-    public PaymentPlan? PaymentPlan { get; set; }
-    public enDealLocation LocationDeal { get; set; }
+    public int UnitPlanId { get; set; }
+    public PaymentPlan PaymentPlan { get; set; }
  public string DealType { get; set; }
     public DateTime DealDate { get; set; }
 
@@ -21,10 +20,5 @@ public class Deal : BaseEntity
 
     
     public byte[] RowVersion { get; set; } = null!;
-}
-public enum enDealLocation
-{
-    SoldInside,
-    SoldOutside
 }
 

@@ -9,6 +9,7 @@ namespace RealEstate.Application.Common.Interfaces;
 public interface IApplicationDbContext
 {
     public DbSet<Request> Requests { get; }
+    public DbSet<UnitSoldout> UnitSoldouts { get; }
 
     DbSet<Unit> Units { get; }
     DbSet<Project> Projects { get; }

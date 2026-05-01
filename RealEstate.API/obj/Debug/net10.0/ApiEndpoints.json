@@ -280,11 +280,6 @@
         "IsRequired": false
       },
       {
-        "Name": "DealLocation",
-        "Type": "System.Nullable\u00601[[RealEstate.Domain.Entities.enDealLocation, RealEstate.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": false
-      },
-      {
         "Name": "SortBy",
         "Type": "System.String",
         "IsRequired": false
@@ -371,37 +366,6 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetCompletedDeals",
-    "RelativePath": "api/Deals/completed",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.DealsController",
     "Method": "GetLatestDeals",
     "RelativePath": "api/Deals/latest",
     "HttpMethod": "GET",
@@ -469,14 +433,14 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetDealsByPropertyCompatibility",
-    "RelativePath": "api/Deals/property/{propertyId}",
+    "Method": "GetDealsByUnit",
+    "RelativePath": "api/Deals/unit/{unitId}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "propertyId",
+        "Name": "unitId",
         "Type": "System.Int32",
         "IsRequired": true
       },
@@ -505,70 +469,8 @@
   },
   {
     "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetDealsSoldInside",
-    "RelativePath": "api/Deals/sold-inside",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetDealsSoldOutside",
-    "RelativePath": "api/Deals/sold-outside",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "pageNumber",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
-        "Name": "pageSize",
-        "Type": "System.Int32",
-        "IsRequired": false
-      }
-    ],
-    "ReturnTypes": [
-      {
-        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.Deals.Models.DealDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "RealEstate.API.Controllers.DealsController",
-    "Method": "GetDealsByUnit",
-    "RelativePath": "api/Deals/unit/{unitId}",
+    "Method": "GetDealsByPropertyCompatibility",
+    "RelativePath": "api/Deals/unit/{unitId}/compatibility",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -1980,6 +1882,73 @@
     ]
   },
   {
+    "ContainingType": "RealEstate.API.Controllers.UnitSoldoutController",
+    "Method": "GetUnitSoldouts",
+    "RelativePath": "api/unit-soldout",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UnitName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "SoldType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageNumber",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "PageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Common.Models.PaginatedList\u00601[[RealEstate.Application.Features.UnitSoldouts.Models.UnitSoldoutDto, RealEstate.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "RealEstate.API.Controllers.UnitSoldoutController",
+    "Method": "GetUnitSoldoutById",
+    "RelativePath": "api/unit-soldout/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "RealEstate.Application.Features.UnitSoldouts.Models.UnitSoldoutDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "RealEstate.API.Controllers.UnitsController",
     "Method": "Get",
     "RelativePath": "api/Units",
@@ -2059,7 +2028,7 @@
   {
     "ContainingType": "RealEstate.API.Controllers.UnitsController",
     "Method": "MarkAsSold",
-    "RelativePath": "api/Units/{id}/sold",
+    "RelativePath": "api/Units/marksold",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -2067,7 +2036,12 @@
       {
         "Name": "id",
         "Type": "System.Int32",
-        "IsRequired": true
+        "IsRequired": false
+      },
+      {
+        "Name": "Notes",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

@@ -16,6 +16,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     {
     }
     public DbSet<Request> Requests => Set<Request>();
+    public DbSet<UnitSoldout> UnitSoldouts => Set<UnitSoldout>();
 
     public DbSet<Unit> Units => Set<Unit>();
     public DbSet<Project> Projects => Set<Project>();

@@ -8,8 +8,6 @@ public class DealDto
     public int Id { get; set; }
     public DateTime DealDate { get; set; }
     public string DealType { get; set; }
-    public string LocationDeal {  get; set; }
-    public bool IsCompleted { get; set; }
     public DealUnitBasicDto Unit { get; set; } = new();
     public DealUnitDetailsDto UnitDetails { get; set; } = new();
     public DealBuyerDto Buyer { get; set; } = new();

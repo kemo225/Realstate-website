@@ -48,11 +48,7 @@ public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, PaginatedList
                                      d.Deal.PaymentPlan.Unit.ProjectId == request.ProjectId.Value);
         }
 
-        if (request.DealLocation.HasValue)
-        {
-            query = query.Where(d => d.Deal.LocationDeal == request.DealLocation.Value);
-        }
-
+   
 
 
 
@@ -63,7 +59,6 @@ public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, PaginatedList
             Id = d.Deal.Id,
             DealType=d.Deal.DealType,
             DealDate = d.Deal.DealDate,
-            LocationDeal = d.Deal.LocationDeal.ToString(),
             Unit = d.Deal.PaymentPlan == null ? new DealUnitBasicDto() : new DealUnitBasicDto
             {
                 UnitId = d.Deal.PaymentPlan.UnitId,
@@ -91,7 +86,6 @@ public class GetDealsQueryHandler : IRequestHandler<GetDealsQuery, PaginatedList
                 Phone = d.Deal.Phone,
                 Email = d.Deal.Email,
                 DealDate = d.Deal.DealDate,
-                DealLocation = d.Deal.LocationDeal.ToString()
             },
             CreatedBy = d.Buyer != null
                 ? (!string.IsNullOrWhiteSpace(d.Buyer.UserName) ? d.Buyer.UserName : d.Buyer.Email)

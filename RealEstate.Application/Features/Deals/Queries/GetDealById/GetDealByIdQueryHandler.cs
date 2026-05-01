@@ -57,8 +57,7 @@ public class GetDealByIdQueryHandler : IRequestHandler<GetDealByIdQuery, DealDet
                                   FullName = item.ClientName,
                                   Phone = item.Phone,
                                   Email = item.Email,
-                                  DealDate = item.DealDate,
-                                  DealLocation = item.LocationDeal.ToString()
+                                  DealDate = item.DealDate
                               },
                               CreatedBy = buyer != null
                                   ? (!string.IsNullOrWhiteSpace(buyer.UserName) ? buyer.UserName : buyer.Email)

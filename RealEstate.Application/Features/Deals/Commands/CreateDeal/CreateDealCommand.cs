@@ -13,8 +13,7 @@ public record CreateDealCommand(
     int UnitPlanId,
     string ?FullName,
     string ?Email,
-    string ?Phone,
-    string DealLocation
+    string ?Phone
     ) : IRequest<Result<int>>;
 
 public class CreateDealCommandHandler : IRequestHandler<CreateDealCommand, Result<int>>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RealEstate.Application.Features.Units.Commands.MarkUnitAsSold;
 
-public record MarkUnitAsSoldCommand(int Id) : IRequest<bool>;
+public record MarkUnitAsSoldCommand(int Id,string Notes) : IRequest<bool>;
 
 public class MarkUnitAsSoldCommandHandler : IRequestHandler<MarkUnitAsSoldCommand, bool>
 {
@@ -34,33 +34,28 @@ public class MarkUnitAsSoldCommandHandler : IRequestHandler<MarkUnitAsSoldComman
         if (!unit.IsActive)
             throw new ValidatationException("Unit is already sold");
 
-        unit.IsActive = false;
-        unit.SoldCount++;
-        var deal = new Deal
+    
+        var UnitSoldOut = new UnitSoldout
         {
-            DealDate = DateTime.UtcNow,
-            ClientName = "",
-            Phone = "",
-            Email = "",
-            UnitPlanId =null
+            UnitId = unit.Id,
+            Notes = request.Notes
         };
 
         if (unit.SoldCount <= 0)
-            deal.DealType = "Sale";
+            UnitSoldOut.SoldType = "Sale";
         else
-            deal.DealType = "ReSale";
-        deal.LocationDeal = enDealLocation.SoldOutside;
+            UnitSoldOut.SoldType = "ReSale";
+        unit.IsActive = false;
+        unit.SoldCount++;
 
-
-            foreach (var paymentPlan in unit.PaymentPlans)
+        foreach (var paymentPlan in unit.PaymentPlans)
         {
            if(paymentPlan.Status==PropertyStatus.Approved)
                 _unitOfWork.Repository<Domain.Entities.PaymentPlan>().Delete(paymentPlan);
         }
 
-      await  _unitOfWork.Repository<RealEstate.Domain.Entities.Deal>().AddAsync(deal);
+      await  _unitOfWork.Repository<RealEstate.Domain.Entities.UnitSoldout>().AddAsync(UnitSoldOut);
 
-        _unitOfWork.Repository<RealEstate.Domain.Entities.Unit>().Update(unit);
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return true;

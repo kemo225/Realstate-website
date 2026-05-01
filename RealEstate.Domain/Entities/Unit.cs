@@ -33,6 +33,7 @@ public class Unit : BaseEntity
     public ICollection<Lead> Leads { get; set; } = new List<Lead>();
 
 
+    public ICollection<UnitSoldout>  UnitSoldOuts { get; set; } = new List<UnitSoldout>();
 
 
     // Concurrency token

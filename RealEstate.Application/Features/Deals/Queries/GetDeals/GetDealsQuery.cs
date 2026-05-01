@@ -8,7 +8,6 @@ namespace RealEstate.Application.Features.Deals.Queries.GetDeals;
 public record GetDealsQuery(
     int? UnitId = null,
     int? ProjectId = null,
-    enDealLocation? DealLocation = null,
     string? SortBy = "dealDate",
     string? SortDirection = "desc",
     int PageNumber = 1,

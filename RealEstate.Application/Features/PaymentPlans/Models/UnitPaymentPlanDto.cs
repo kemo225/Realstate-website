@@ -9,7 +9,7 @@ public class UnitPaymentPlanDto
     public int UnitId { get; set; }
     public string UnitName { get; set; } = string.Empty;
     public decimal InstallmentDownPayment { get; set; }
-    public int InstallmentYears { get; set; }
+    public int InstallmentMonths { get; set; }
     public string PaymentType { get; set; }
     public string UnitStatus { get; set; }
     public string? CreatedBy { get; set; }

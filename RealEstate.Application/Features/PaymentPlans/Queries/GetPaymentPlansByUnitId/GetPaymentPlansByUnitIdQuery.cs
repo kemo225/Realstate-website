@@ -36,7 +36,7 @@ public class GetPaymentPlansByUnitIdQueryHandler : IRequestHandler<GetPaymentPla
                 UnitName = p.Unit.Name,
                 InstallmentDownPayment =Convert.ToDecimal(p.InstallmentDownPayment),
                 PaymentType = p.PaymentType.ToString()!,
-                InstallmentYears = Convert.ToInt32(p.InstallmentMothes),
+                InstallmentMonths = Convert.ToInt32(p.InstallmentMothes),
                 UnitStatus =p.Status.ToString() ?? "",
                 CreatedAt = p.CreatedAt,
                 CreatedBy = p.CreatedByUser != null ? p.CreatedByUser.UserName : null,
