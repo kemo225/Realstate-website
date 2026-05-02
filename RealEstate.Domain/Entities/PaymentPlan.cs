@@ -9,7 +9,7 @@ namespace RealEstate.Domain.Entities
     public class PaymentPlan : BaseEntity
     {
         public decimal? CommissionRate { get; set; }
-        public decimal? InstallmentMothes { get; set; }
+        public int? InstallmentMothes { get; set; }
         public decimal? InstallmentDownPayment { get; set; }
         public PaymentType? PaymentType { get; set; } 
         public PropertyStatus? Status { get; set; } 

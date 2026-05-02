@@ -529,11 +529,9 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Latitude")
-                        .HasPrecision(10, 8)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
-                        .HasPrecision(11, 8)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
@@ -563,7 +561,8 @@ namespace RealEstate.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal?>("CommissionRate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(4, 2)
+                        .HasColumnType("decimal(4,2)");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -572,10 +571,11 @@ namespace RealEstate.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal?>("InstallmentDownPayment")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(4, 2)
+                        .HasColumnType("decimal(4,2)");
 
-                    b.Property<decimal?>("InstallmentMothes")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int?>("InstallmentMothes")
+                        .HasColumnType("int");
 
                     b.Property<int?>("PaymentType")
                         .HasColumnType("int");
@@ -1166,9 +1166,7 @@ namespace RealEstate.Infrastructure.Migrations
 
                     b.HasOne("RealEstate.Domain.Entities.Developer", "Developer")
                         .WithMany("Gallery")
-                        .HasForeignKey("DeveloperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DeveloperId");
 
                     b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
                         .WithMany()

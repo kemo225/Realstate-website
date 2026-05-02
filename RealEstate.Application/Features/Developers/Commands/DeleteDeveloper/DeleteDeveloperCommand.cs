@@ -38,7 +38,11 @@ public class DeleteDeveloperCommandHandler : IRequestHandler<DeleteDeveloperComm
 
         // Soft delete
         developer.IsDeleted = true;
-        _unitOfWork.Repository<Developer>().Update(developer);
+        foreach (var gallery in developer.Gallery)
+        {
+            _unitOfWork.Repository<DeveloperGallery>().Delete(gallery);
+        }
+
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
         return MediatR.Unit.Value;

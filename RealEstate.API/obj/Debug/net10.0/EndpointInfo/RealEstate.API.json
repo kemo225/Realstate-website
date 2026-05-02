@@ -4435,13 +4435,11 @@
             "nullable": true
           },
           "latitude": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           },
           "longitude": {
-            "type": "number",
-            "format": "double",
+            "type": "string",
             "nullable": true
           },
           "createdBy": {

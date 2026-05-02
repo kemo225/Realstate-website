@@ -58,9 +58,15 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     
         builder.Entity<ApplicationUser>().HasQueryFilter(u => !u.IsDeleted);
         builder.Entity<Unit>().Property(p => p.Price).HasPrecision(18, 2);
-        builder.Entity<Location>().Property(l => l.Latitude).HasPrecision(10, 8);
-        builder.Entity<Location>().Property(l => l.Longitude).HasPrecision(11, 8);
+        builder.Entity<PaymentPlan>().Property(p => p.CommissionRate).HasPrecision(4, 2);
+        builder.Entity<PaymentPlan>().Property(p => p.InstallmentDownPayment).HasPrecision(4, 2);
 
+
+        builder.Entity<DeveloperGallery>()
+    .HasOne(g => g.Developer)
+    .WithMany(d => d.Gallery)
+    .HasForeignKey(g => g.DeveloperId)
+    .IsRequired(false);
 
         builder.Entity<Request>()
             .HasOne(u => u.ApprovedByUser)
