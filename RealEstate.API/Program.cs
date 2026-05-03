@@ -79,6 +79,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+app.UseStaticFiles();
+
 // Migrate and seed database
 using (var scope = app.Services.CreateScope())
 {
@@ -109,6 +111,9 @@ using (var scope = app.Services.CreateScope())
 
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// Multilingual: resolve Accept-Language before any handler runs
+app.UseMiddleware<LocalizationMiddleware>();
 
 app.UseHttpsRedirection();
 

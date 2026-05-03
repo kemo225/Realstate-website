@@ -10,6 +10,8 @@ using Microsoft.IdentityModel.Tokens;
 using RealEstate.Application.Common.Interfaces;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
+using RealEstate.Domain.Services;
+using RealEstate.Infrastructure.Localization;
 using RealEstate.Infrastructure.Persistence;
 using RealEstate.Infrastructure.Persistence.Interceptors;
 using RealEstate.Infrastructure.Identity;
@@ -70,6 +72,10 @@ public static class DependencyInjection
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<ITokenService, TokenService>();
+
+        // Multilingual support
+        services.AddScoped<ITranslationService, TranslationService>();
+        services.AddScoped<ILanguageContext, LanguageContext>();
 
         return services;
     }

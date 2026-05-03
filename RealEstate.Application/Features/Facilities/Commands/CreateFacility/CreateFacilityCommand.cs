@@ -1,9 +1,11 @@
 using MediatR;
+using RealEstate.Application.Common.Models;
 
 namespace RealEstate.Application.Features.Facilities.Commands.CreateFacility;
 
 public class CreateFacilityCommand : IRequest<int>
 {
-    public string Name { get; set; } = string.Empty;
+    /// <summary>Multilingual name. English (En) is required.</summary>
+    public TranslationInputDto Name { get; set; } = new();
 }
 

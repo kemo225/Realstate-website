@@ -6,10 +6,17 @@ public class CreateFacilityCommandValidator : AbstractValidator<CreateFacilityCo
 {
     public CreateFacilityCommandValidator()
     {
-        RuleFor(p => p.Name)
-            .NotEmpty().WithMessage("{PropertyName} is required.")
-            .NotNull()
-            .MaximumLength(100).WithMessage("{PropertyName} must not exceed 100 characters.");
+        // English is the required base language
+        RuleFor(x => x.Name.En)
+            .NotEmpty().WithMessage("Name in English (En) is required.")
+            .MaximumLength(200).WithMessage("Name must not exceed 200 characters.");
+
+
+        When(x => !string.IsNullOrWhiteSpace(x.Name.De), () =>
+            RuleFor(x => x.Name.De).MaximumLength(200));
+
+        When(x => !string.IsNullOrWhiteSpace(x.Name.Pl), () =>
+            RuleFor(x => x.Name.Pl).MaximumLength(200));
     }
 }
 

@@ -37,6 +37,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
     public DbSet<Developer> Developers => Set<Developer>();
     public DbSet<DeveloperGallery> DeveloperGalleries => Set<DeveloperGallery>();
 
+    // Translation system
+    public DbSet<EntityTranslation> Translations => Set<EntityTranslation>();
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
@@ -73,7 +76,25 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplica
             .WithMany()
             .HasForeignKey(u => u.ApprovedById)
             .OnDelete(DeleteBehavior.Restrict);
-   
+
+        // EntityTranslation: unique constraint prevents duplicate translations
+        builder.Entity<EntityTranslation>(entity =>
+        {
+            entity.HasKey(t => t.Id);
+            entity.ToTable("EntityTranslations");
+
+            entity.HasIndex(t => new { t.EntityType, t.EntityId, t.FieldName, t.Language })
+                  .IsUnique()
+                  .HasDatabaseName("UQ_Translations_EntityType_EntityId_FieldName_Language");
+
+            // Covering index for the most common lookup pattern
+            entity.HasIndex(t => new { t.EntityType, t.EntityId, t.Language })
+                  .HasDatabaseName("IX_Translations_Lookup");
+
+            entity.Property(t => t.FieldName).HasMaxLength(64).IsRequired();
+            entity.Property(t => t.Language).HasMaxLength(8).IsRequired();
+            entity.Property(t => t.Value).IsRequired();
+        });
 
     }
 

@@ -1,95 +1,144 @@
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using RealEstate.Application.Common.Interfaces;
+using RealEstate.Application.Common.Models;
 using RealEstate.Application.Exceptions;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RealEstate.Application.Features.Projects.Commands.AddPropertyForProject
 {
     public class AddPropertiesToProjectHandler : IRequestHandler<AddPropertiesToProjectCommand, int>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ITranslationService _translationService;
 
-        public AddPropertiesToProjectHandler(IUnitOfWork unitOfWork)
+        public AddPropertiesToProjectHandler(IUnitOfWork unitOfWork, ITranslationService translationService)
         {
             _unitOfWork = unitOfWork;
+            _translationService = translationService;
         }
+
         public async Task<int> Handle(AddPropertiesToProjectCommand request, CancellationToken cancellationToken)
         {
             var project = await _unitOfWork.Repository<Project>().GetByIdAsync(request.ProjectId);
             if (project == null)
+            {
                 throw new NotFoundException("Project", request.ProjectId);
+            }
 
-        
-
-            foreach (var Unit in request.Units)
+            foreach (var unitInput in request.Units)
             {
                 if (await _unitOfWork.Repository<Project>()
-    .ExistsAsync(p =>
-        p.Id == request.ProjectId &&
-        p.Properties.Any(u => u.Name == Unit.Name)))
+                    .ExistsAsync(p =>
+                        p.Id == request.ProjectId &&
+                        p.Properties.Any(u => u.Name == unitInput.Name.En)))
                 {
-                    throw new Exceptions.ValidatationException($"A property with the name '{Unit.Name}' already exists.");
+                    throw new ValidatationException($"A property with the name '{unitInput.Name.En}' already exists.");
                 }
 
-                var property = new Domain.Entities.Unit
+                var parsedType = ParseUnitType(unitInput.Type);
+                var parsedStatus = ParseUnitStatus(unitInput.Status, parsedType);
+
+                var property = new RealEstate.Domain.Entities.Unit
                 {
-                  
-                    Name = Unit.Name,
-                    Description = Unit.Description,
-                    NoBathRoom= Unit.NoBathRoom,
-                    NoKitchen = Unit.NoKithchen,
-                    NoBedRoom = Unit.NoBedRoom,
-                    Price = Unit.Price,
-                    PropertyType = Unit.PropertyType,
+                    Name = unitInput.Name.En,
+                    Description = string.IsNullOrWhiteSpace(unitInput.Description.En) ? null : unitInput.Description.En,
+                    NoBathRoom = unitInput.NoBathRoom,
+                    NoKitchen = unitInput.NoKithchen,
+                    NoBedRoom = unitInput.NoBedRoom,
+                    Price = unitInput.Price,
+                    PropertyType = unitInput.PropertyType,
                     ProjectId = request.ProjectId,
-                    IsFeatured = Unit.IsFeatured,
-                    Area=Unit.Area,
-                    FloorNumber=Unit.FloorNumber,
-                    FloorName=Unit.FloorName
+                    IsFeatured = unitInput.IsFeatured,
+                    Area = unitInput.Area,
+                    FloorNumber = unitInput.FloorNumber,
+                    FloorName = unitInput.FloorName,
+                    View = unitInput.View,
+                    Type = parsedType,
+                    Status = parsedStatus
                 };
-                if(Unit.FacilityIds.Count>0)
+
+                if (unitInput.FacilityIds.Count > 0)
                 {
-                    foreach (var facilityId in Unit.FacilityIds)
+                    foreach (var facilityId in unitInput.FacilityIds)
                     {
                         var facility = await _unitOfWork.Repository<Facility>().GetByIdAsync(facilityId);
                         if (facility == null)
+                        {
                             throw new ValidatationException($"Facility with ID '{facilityId}' does not exist.");
+                        }
+
                         property.PropertyFacilities.Add(new UnitFacility { FacilityId = facilityId });
                     }
                 }
 
-                if (Unit.ServicesIds.Count > 0)
+                if (unitInput.ServicesIds.Count > 0)
                 {
-                    foreach (var serviceId in Unit.ServicesIds)
+                    foreach (var serviceId in unitInput.ServicesIds)
                     {
-                        var service = await _unitOfWork.Repository<Domain.Entities.Service>().GetByIdAsync(serviceId);
+                        var service = await _unitOfWork.Repository<RealEstate.Domain.Entities.Service>().GetByIdAsync(serviceId);
                         if (service == null)
+                        {
                             throw new ValidatationException($"Service with ID '{serviceId}' does not exist.");
+                        }
+
                         property.UnitServices.Add(new UnitService { ServiceId = serviceId });
                     }
                 }
-                foreach (var Payment in Unit.PaymentPlans)
+
+                foreach (var payment in unitInput.PaymentPlans)
                 {
-                    property.PaymentPlans.Add(new PaymentPlan()
+                    property.PaymentPlans.Add(new PaymentPlan
                     {
                         CommissionRate = 0,
-                        InstallmentDownPayment = Payment.InstallmentDownPayment ?? 0,
-                        InstallmentMothes = Payment.InstallmentMonthes ?? 0,
-                        PaymentType = (Payment.PaymentType.ToLower() == PaymentType.Cash.ToString().ToLower()) ? PaymentType.Cash : PaymentType.Installment,
-                        Status = PropertyStatus.Approved,
+                        InstallmentDownPayment = payment.InstallmentDownPayment ?? 0,
+                        InstallmentMothes = payment.InstallmentMonthes ?? 0,
+                        PaymentType = string.Equals(payment.PaymentType, PaymentType.Cash.ToString(), StringComparison.OrdinalIgnoreCase)
+                            ? PaymentType.Cash
+                            : PaymentType.Installment,
+                        Status = PropertyStatus.Approved
                     });
                 }
 
+                await _unitOfWork.Repository<RealEstate.Domain.Entities.Unit>().AddAsync(property);
+                await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-                project.Properties.Add(property);
+                await _translationService.SaveTranslationsAsync(
+                    TranslatableEntity.Unit,
+                    property.Id,
+                    new Dictionary<string, TranslationInputDto>
+                    {
+                        ["Name"] = unitInput.Name,
+                        ["Description"] = unitInput.Description
+                    },
+                    cancellationToken);
             }
 
-            await _unitOfWork.SaveChangesAsync();
             return project.Id;
+        }
+
+        private static enTyoeUnit? ParseUnitType(string? type)
+        {
+            if (string.IsNullOrWhiteSpace(type))
+            {
+                return null;
+            }
+
+            return Enum.TryParse<enTyoeUnit>(type, true, out var parsed)
+                ? parsed
+                : null;
+        }
+
+        private static enStatusUnit? ParseUnitStatus(string? status, enTyoeUnit? type)
+        {
+            if (type != enTyoeUnit.Buy || string.IsNullOrWhiteSpace(status))
+            {
+                return null;
+            }
+
+            return Enum.TryParse<enStatusUnit>(status, true, out var parsed)
+                ? parsed
+                : null;
         }
     }
 }

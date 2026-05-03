@@ -419,6 +419,62 @@ namespace RealEstate.Infrastructure.Migrations
                     b.ToTable("DeveloperGalleries");
                 });
 
+            modelBuilder.Entity("RealEstate.Domain.Entities.EntityTranslation", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("EntityId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EntityType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FieldName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
+
+                    b.Property<string>("Language")
+                        .IsRequired()
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedById")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatedById");
+
+                    b.HasIndex("UpdatedById");
+
+                    b.HasIndex("EntityType", "EntityId", "Language")
+                        .HasDatabaseName("IX_Translations_Lookup");
+
+                    b.HasIndex("EntityType", "EntityId", "FieldName", "Language")
+                        .IsUnique()
+                        .HasDatabaseName("UQ_Translations_EntityType_EntityId_FieldName_Language");
+
+                    b.ToTable("EntityTranslations", (string)null);
+                });
+
             modelBuilder.Entity("RealEstate.Domain.Entities.Facility", b =>
                 {
                     b.Property<int>("Id")
@@ -877,6 +933,12 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<int>("SoldCount")
                         .HasColumnType("int");
 
+                    b.Property<int?>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -1176,6 +1238,23 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Navigation("CreatedByUser");
 
                     b.Navigation("Developer");
+
+                    b.Navigation("UpdatedByUser");
+                });
+
+            modelBuilder.Entity("RealEstate.Domain.Entities.EntityTranslation", b =>
+                {
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "CreatedByUser")
+                        .WithMany()
+                        .HasForeignKey("CreatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("RealEstate.Domain.Entities.ApplicationUser", "UpdatedByUser")
+                        .WithMany()
+                        .HasForeignKey("UpdatedById")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("CreatedByUser");
 
                     b.Navigation("UpdatedByUser");
                 });

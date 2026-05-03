@@ -15,6 +15,10 @@ public class Unit : BaseEntity
     public PropertyType PropertyType { get; set; } = PropertyType.Apartment;
     public int FloorNumber { get; set; }
     public enView View { get; set; } = enView.Mountain;
+
+    public enStatusUnit? Status { get; set; } 
+    public enTyoeUnit ?Type { get; set; }
+
     public string? FloorName { get; set; }
     public bool IsFeatured { get; set; }
 
@@ -46,6 +50,14 @@ public enum enView
     Garden,
     Pool,
     SeaAndPool,
+}
+public enum enTyoeUnit
+{
+    Buy,Rent
+}
+public enum enStatusUnit
+{
+    Primary, Reslae
 }
 public enum PropertyType
 {

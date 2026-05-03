@@ -20,7 +20,10 @@ namespace RealEstate.API.Controllers;
 [Authorize]
 public class ProjectsController : BaseApiController
 {
+
     [HttpGet]
+    [AllowAnonymous]
+
     public async Task<ActionResult<ApiResponse<PaginatedList<ProjectDto>>>> GetAll([FromQuery] GetProjectsQuery query)
     {
         var result = await Mediator.Send(query);
@@ -28,6 +31,8 @@ public class ProjectsController : BaseApiController
     }
 
     [HttpGet("{id}")]
+    [AllowAnonymous]
+
     public async Task<ActionResult<ApiResponse<ProjectDto>>> GetById(int id)
     {
         var result = await Mediator.Send(new GetProjectByIdQuery(id));

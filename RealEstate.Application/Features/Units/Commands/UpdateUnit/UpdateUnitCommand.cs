@@ -1,13 +1,14 @@
 using MediatR;
 using RealEstate.Domain.Entities;
+using RealEstate.Application.Common.Models;
 
 namespace RealEstate.Application.Features.Units.Commands.UpdateUnit;
 
 public class UpdateUnitCommand : IRequest<int>
 {
     public int Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
+    public TranslationInputDto Name { get; set; } = new();
+    public TranslationInputDto Description { get; set; } = new();
     public decimal Price { get; set; }
     public PropertyType PropertyType { get; set; }
     public int NoBathRoom { get; set; }

@@ -27,5 +27,8 @@ public interface IApplicationDbContext
     DbSet<IdentityRole> Roles { get; }
     DbSet<IdentityUserRole<string>> UserRoles { get; }
 
+    // Translation system
+    DbSet<EntityTranslation> Translations { get; }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

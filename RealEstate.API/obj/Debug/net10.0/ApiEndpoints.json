@@ -1787,7 +1787,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "RealEstate.Application.Features.Facilities.Commands.CreateFacility.CreateSercviceCommand",
+        "Type": "RealEstate.Application.Features.Service.Commands.CreateSercvice.CreateSercviceCommand",
         "IsRequired": true
       }
     ],
@@ -1813,7 +1813,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "RealEstate.Application.Features.Facilities.Commands.UpdateFacility.UpdateSercviceCommand",
+        "Type": "RealEstate.Application.Features.Service.Commands.UpdateSercvice.UpdateSercviceCommand",
         "IsRequired": true
       }
     ],

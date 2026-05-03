@@ -2,12 +2,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Application.Features.Facilities.Commands.CreateFacility;
-using RealEstate.Application.Features.Facilities.Commands.DeleteFacility;
-using RealEstate.Application.Features.Facilities.Commands.UpdateFacility;
 using RealEstate.Application.Features.Facilities.Models;
-using RealEstate.Application.Features.Facilities.Queries.GetFacilities;
-using RealEstate.Application.Features.Facilities.Queries.GetFacilityById;
+using RealEstate.Application.Features.Service.Commands.CreateSercvice;
+using RealEstate.Application.Features.Service.Commands.DeleteSercvice;
+using RealEstate.Application.Features.Service.Commands.UpdateSercvice;
 using RealEstate.Application.Features.Service.Queries.GetSercviceById;
 using RealEstate.Application.Features.Service.Queries.GetService;
 

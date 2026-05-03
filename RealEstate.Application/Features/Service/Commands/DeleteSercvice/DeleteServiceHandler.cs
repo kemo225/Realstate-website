@@ -1,11 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Exceptions;
-using RealEstate.Application.Features.Facilities.Commands.DeleteFacility;
 using RealEstate.Domain.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace RealEstate.Application.Features.Service.Commands.DeleteSercvice
 {

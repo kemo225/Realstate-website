@@ -1,11 +1,12 @@
 using MediatR;
+using RealEstate.Application.Common.Models;
 
 namespace RealEstate.Application.Features.Projects.Commands.CreateProject;
 
 public class CreateProjectCommand : IRequest<int>
 {
-    public string Name { get; set; } = string.Empty;
-    public string? Description { get; set; }
+    public TranslationInputDto Name { get; set; } = new();
+    public TranslationInputDto Description { get; set; } = new();
     public int? DeveloperId { get; set; }
     public int LocationId { get; set; }
 }

@@ -15,12 +15,5 @@ public class UpdateLocationCommandValidator : AbstractValidator<UpdateLocationCo
             .NotEmpty().WithMessage("District is required.")
             .MaximumLength(100);
 
-        RuleFor(p => p.Street)
-            .NotEmpty().WithMessage("Street is required.")
-            .MaximumLength(100);
-
-        RuleFor(p => p.Country)
-            .NotEmpty().WithMessage("Country is required.")
-            .MaximumLength(100);
     }
 }

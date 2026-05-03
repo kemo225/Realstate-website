@@ -10,6 +10,20 @@ public class UnitDto
     public string Name { get; set; } = string.Empty;
     public string? Description { get; set; }
     public decimal Price { get; set; }
+    //
+    public int Area { get; set; }
+    public int NoBathRoom { get; set; }
+    public int NoBedRoom { get; set; }
+    public int NoKitchen { get; set; }
+    public string? FloorName { get; set; }
+    public int FloorNumber { get; set; }
+    //
+    public string ?UnitType { get; set; } = string.Empty;
+    public string? UnitStatus { get; set; } = string.Empty;
+
+
+
+    //
     public string PropertyType { get; set; } = string.Empty;
     public bool IsFeatured { get; set; }
     public bool IsActive { get; set; }

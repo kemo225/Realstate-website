@@ -10,10 +10,30 @@ public class UpdateUnitCommandValidator : AbstractValidator<UpdateUnitCommand>
         RuleFor(p => p.Id)
             .NotEmpty().WithMessage("{Id} is required.");
 
-        RuleFor(p => p.Name)
-            .NotEmpty().WithMessage("{Name} is required.")
-            .NotNull()
-            .MaximumLength(200).WithMessage("{PropertyName} must not exceed 200 characters.");
+        // English is the required base language for Name
+        RuleFor(x => x.Name.En)
+            .NotEmpty().WithMessage("Name in English (En) is required.")
+            .MaximumLength(200).WithMessage("Name must not exceed 200 characters.");
+
+
+
+        When(x => !string.IsNullOrWhiteSpace(x.Name.De), () =>
+            RuleFor(x => x.Name.De).MaximumLength(200));
+
+        When(x => !string.IsNullOrWhiteSpace(x.Name.Pl), () =>
+            RuleFor(x => x.Name.Pl).MaximumLength(200));
+
+        // Description validation
+        RuleFor(x => x.Description.En)
+            .MaximumLength(2000).WithMessage("Description must not exceed 2000 characters.");
+
+    
+
+        When(x => !string.IsNullOrWhiteSpace(x.Description.De), () =>
+            RuleFor(x => x.Description.De).MaximumLength(2000));
+
+        When(x => !string.IsNullOrWhiteSpace(x.Description.Pl), () =>
+            RuleFor(x => x.Description.Pl).MaximumLength(2000));
 
         RuleFor(p => p.Price)
             .GreaterThan(0).WithMessage("{Price} must be greater than 0.");
